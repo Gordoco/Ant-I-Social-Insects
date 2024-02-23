@@ -113,7 +113,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &6355964230552244854
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -171,5 +171,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae9560db2bfe2b4bbda36a21ac967f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialAngle: 45
-  initialForce: 700
+  initialAngle: 135
+  initialForce: 400

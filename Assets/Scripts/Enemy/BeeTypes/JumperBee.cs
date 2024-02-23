@@ -5,8 +5,8 @@ using UnityEngine;
 public class JumperBee : BaseBee
 {
     //EDITOR VARIABLES
-    public float initialAngle = 135.0f;
-    public float initialForce = 200.0f;
+    [SerializeField] private float initialAngle = 135.0f;
+    [SerializeField] private float initialForce = 200.0f;
     //----------------
 
     public override void Initialize(float minThreshold)

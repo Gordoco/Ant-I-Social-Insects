@@ -5,8 +5,26 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     //EDITOR VARIABLES
-    public GameObject[] beeTypes;
+    [SerializeField] private GameObject[] beeTypes;
+
+    [SerializeField] private float minYSpawn;
+    [SerializeField] private float maxYSpawn;
+    [SerializeField] private float XSpawn;
     //---------------
+
+    float count = 0;
+    const float spawnTimer = 1;
+    private void Update()
+    {
+        count += Time.deltaTime;
+        if (count > spawnTimer)
+        {
+            count = 0;
+            GameObject bee = Instantiate(GetBeeToSpawn(), new Vector3(XSpawn, Random.Range(minYSpawn, maxYSpawn), 0), transform.rotation);
+            bee.GetComponent<BaseBee>().Initialize(0);
+            if (bee == null) Debug.Log("ERROR: EnemyManager - Failed Bee Spawn");
+        }
+    }
 
     public GameObject GetBeeToSpawn()
     {
