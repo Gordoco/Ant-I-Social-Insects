@@ -9,11 +9,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //EDITOR VARIABLES
-    public float jumpForce = 50.0f;
-    public float initialAngle = 45.0f;
-    public float initialForce = 100.0f;
+    [SerializeField] private float jumpForce = 50.0f;
+    [SerializeField] private float initialAngle = 45.0f;
+    [SerializeField] private float initialForce = 100.0f;
 
-    public AnimationClip[] animations;
+    [SerializeField] private float strafeSpeed = 10.0f;
+    [SerializeField] private float maxStrafeSpeed = 1.0f;
+    [SerializeField] private float terminalYVelocity = -10.0f;
+
+    [SerializeField] private AnimationClip attackAnimation;
+    [SerializeField] private AnimationClip jumpAnimation;
     //----------------
 
     private Rigidbody2D rb;
@@ -31,6 +36,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         InputHandling(); //For Debugging and testing without needing bees
+        AddTerminalVelocity();
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -53,18 +59,33 @@ public class PlayerController : MonoBehaviour
 
     private void InputHandling()
     {
-        //TEST_HandleJump();
+        HandleHorizontalMovement();
         HandleDownSwing();
+    }
+
+    private void HandleHorizontalMovement()
+    {
+        float val = Input.GetAxis("Horizontal");
+        rb.AddForce(transform.right * val * strafeSpeed);
+        rb.velocity = new Vector2(
+            Mathf.Clamp(rb.velocity.x, 0, maxStrafeSpeed),
+            rb.velocity.y
+            );
     }
 
     private void HandleDownSwing()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButton("Jump"))
         {
             Debug.Log("Sanity Check");
-            anim.Play(animations[0].name);
+            anim.Play(attackAnimation.name);
             EvaluateHit();
         }
+    }
+
+    private void AddTerminalVelocity()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, terminalYVelocity, Mathf.Infinity));
     }
 
     private bool EvaluateHit()
@@ -78,18 +99,10 @@ public class PlayerController : MonoBehaviour
         {
             case EInteractionResult.Bounce:
                 rb.AddForce(jumpForce * interaction.bounceModifier * transform.up);
+                anim.Play(jumpAnimation.name);
                 break;
             default:
                 break;
-        }
-    }
-
-    private void TEST_HandleJump()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Sanity Check");
-            rb.AddForce(jumpForce * transform.up);
         }
     }
 }
