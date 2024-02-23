@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ChaserBeeSpawner : EnemySpawner
 {
-    [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private ObjectPool _enemyPool;
     [SerializeField] private Transform _player;
 
     // top left, bottom left, top right, bottom right
@@ -31,7 +31,10 @@ public class ChaserBeeSpawner : EnemySpawner
 
         Vector2 spawnPosition = Vector2.Lerp(start, end, Random.Range(0.0f, 1.0f));
 
-        GameObject enemyObj = Instantiate(_enemyPrefab);
+        GameObject enemyObj = _enemyPool.GetObject();
+
+        if (enemyObj == null) return;
+
         ChaserBee bee = enemyObj.GetComponent<ChaserBee>();
 
         bee.PlayerPosition = player.position;

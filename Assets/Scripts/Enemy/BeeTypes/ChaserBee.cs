@@ -19,6 +19,8 @@ public class ChaserBee : BaseBee
 
     public override void Initialize(float minThreshold)
     {
+        gameObject.SetActive(true);
+
         transform.position = SpawnPosition;
         _rb.velocity =
             new Vector2
@@ -26,6 +28,8 @@ public class ChaserBee : BaseBee
                 Speed * Mathf.Sign(PlayerPosition.x - SpawnPosition.x),
                 0
             );
+
+        StartCoroutine(ChaserBeeAutoDeath());
     }
     public override FInteraction Interact(EInteractionType interaction)
     {
@@ -42,4 +46,9 @@ public class ChaserBee : BaseBee
         return result;
     }
 
+    private IEnumerator ChaserBeeAutoDeath()
+    {
+        yield return new WaitForSeconds(4f);
+        gameObject.SetActive(false);
+    }
 }

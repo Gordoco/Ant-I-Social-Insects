@@ -7,57 +7,27 @@ using UnityEngine;
  */
 public class ObjectPool : MonoBehaviour
 {
-    /* Implemented as a Heap */
-    private GameObject[] objectPool; //Partially Filled Array
-    int count = 0;
+    [SerializeField] private GameObject _prefab;
+    [SerializeField] private int _poolSize;
+    private GameObject[] objectPool;
 
-    void Start() { }
-
-    /**
-     * #### void OnDestroy
-     * Unity message for when an object is destroyed
-     * Calls destroy on each owned object in order to prevent an object cascade/memory leak
-     */
-    private void OnDestroy()
+    private void Awake()
     {
-        for (int i = 0; i < count; i++) Destroy(objectPool[i]);
-    }
-
-    /**
-     * #### void initializePool
-     * Creates the set of objects of a given size and prepares the data structure for their retrieval
-     */
-    public void initializePool(int poolSize, GameObject objectClass) //Initial instantiation
-    {
-        objectPool = new GameObject[poolSize];
-        count = poolSize;
-        for (int i = 0; i < poolSize; i++)
+        objectPool = new GameObject[_poolSize];
+        for (int i = 0; i < _poolSize; i++)
         {
-            objectPool[i] = Instantiate(objectClass, Vector3.zero, Quaternion.identity) as GameObject;
-            objectPool[i].transform.parent = gameObject.transform;
+            objectPool[i] = Instantiate(_prefab, Vector3.zero, Quaternion.identity) as GameObject;
             objectPool[i].SetActive(false);
         }
     }
 
-    /**
-     * #### GameObject getObject
-     * Handles the retrieval of a new object from the pool
-     */
-    public GameObject getObject()
+    public GameObject GetObject()
     {
-        count--;
-        objectPool[count].SetActive(true);
-        return objectPool[count];
-    }
+        foreach(GameObject obj in objectPool)
+        {
+            if (!obj.activeSelf) return obj;
+        }
 
-    /**
-     * #### void disableObject
-     * A method for returning an unused object to the pool
-     */
-    public void disableObject(GameObject obj)
-    {
-        objectPool[count] = obj;
-        count++;
-        obj.SetActive(false);
+        return null;
     }
 }
