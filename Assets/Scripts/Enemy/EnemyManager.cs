@@ -14,15 +14,18 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] public GameObject poolTemplate;
     //---------------
 
+    private int score = 0;
+
     private IEnumerator Start()
     {
-        EnemySpawner[] spawners = new EnemySpawner[1];
-        for (int i = 0; i < 1; i++)
+        EnemySpawner[] spawners = new EnemySpawner[2];
+        for (int i = 0; i < 2; i++)
         {
             spawners[i] = beeTypes[i].GetComponent<BaseBee>().GetSpawnerType(beeTypes[i]);
         }
         while (true)
         {
+            score++;
             for (int i = 0; i < spawners.Length; i++)
             {
                 spawners[i].SpawnEnemy(GameObject.FindGameObjectWithTag("Player").transform);

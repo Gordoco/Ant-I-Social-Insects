@@ -63,7 +63,12 @@ public class PlayerController : MonoBehaviour
     {
         if (!collision.gameObject.GetComponent<BaseBee>()) return;
         BaseBee beeClass = collision.gameObject.GetComponent<BaseBee>();
-        HandleInteraction(beeClass.Interact(EInteractionType.Stomp));
+        if (bHit)
+        {
+            HandleInteraction(beeClass.Interact(EInteractionType.Swing));
+            //Debug.Log("HEY YOU SLAPPED SOMEONE");
+        }
+        else HandleInteraction(beeClass.Interact(EInteractionType.Stomp));
     }
     //---------------------------------------------------------------------
 
