@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     private bool bHit = false;
     private float forward = 0;
     private bool terminalVelOverride = false;
-    private bool bDead = false;
+    private float bounceFastFallDelayTime = 0.3f;
 
     private bool bStun = false;
 
@@ -67,7 +67,6 @@ public class PlayerController : MonoBehaviour
         if (CheckForDead())
         {
             Die?.Invoke(this, System.EventArgs.Empty);
-            bDead = true;
             SceneManager.LoadScene(gameOverScene);
         }
 
@@ -145,18 +144,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    float FF_count = 0;
     private void HandleVerticalMovement(float delta)
     {
-        float val = Input.GetAxis("Vertical");
-
-        if (val >= 0)
+        if (FF_count > 0)
         {
-            terminalVelOverride = false;
-            rb.gravityScale = gravityScale;
-            return;
+            FF_count -= delta;
         }
-        rb.gravityScale += delta * fastFallRate;
-        terminalVelOverride = true;
+        else
+        {
+            FF_count = 0;
+            float val = Input.GetAxis("Vertical");
+
+            if (val >= 0)
+            {
+                terminalVelOverride = false;
+                rb.gravityScale = gravityScale;
+                return;
+            }
+            rb.gravityScale += delta * fastFallRate;
+            terminalVelOverride = true;
+        }
     }
 
     private void HandleDownSwing()
@@ -203,9 +211,9 @@ public class PlayerController : MonoBehaviour
         switch (interaction.result)
         {
             case EInteractionResult.Bounce:
-                rb.velocity = new Vector2(rb.velocity.x, 0);
+                FF_count = bounceFastFallDelayTime;
                 rb.gravityScale = gravityScale;
-                rb.AddForce(jumpForce * interaction.bounceModifier * transform.up);
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce * interaction.bounceModifier * transform.up.y);
                 Bounce?.Invoke(this, System.EventArgs.Empty);
                 //anim.Play(jumpAnimation.name);
                 break;
@@ -214,7 +222,6 @@ public class PlayerController : MonoBehaviour
                 int dirMult;
                 if (interaction.other.transform.position.x - gameObject.transform.position.x > 0) dirMult = -1;
                 else dirMult = 1;
-                // rb.velocity += jumpForce * interaction.bounceModifier * (Vector2)transform.right * dirMult;
                 StopAllCoroutines();
                 StartCoroutine(StunProcess(interaction.stunTime));
                 rb.AddForce(jumpForce * interaction.bounceModifier * transform.right * dirMult);
