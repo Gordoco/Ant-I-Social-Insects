@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 29487726885535631}
   - component: {fileID: 6355964230552244854}
   - component: {fileID: 4654245403653882270}
+  - component: {fileID: 8464379568277511935}
   m_Layer: 0
   m_Name: JumperBee
   m_TagString: Untagged
@@ -174,5 +175,24 @@ MonoBehaviour:
   swingMult: 5.5
   smackMult: 2
   knockoutForce: 600
+  stunTime: 0.2
   initialAngle: 135
   initialForce: 320
+--- !u!114 &8464379568277511935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7702567728395924562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aeddfecef22d134bb81812d069d70ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseEnemy: {fileID: 4654245403653882270}
+  _bounce: {fileID: 11400000, guid: fe2c7f05020872247a4af9e41a4c9c59, type: 2}
+  _damage: {fileID: 11400000, guid: fe2c7f05020872247a4af9e41a4c9c59, type: 2}
+  _kill: {fileID: 0}
+  _spawned: {fileID: 0}
+  _dead: {fileID: 0}

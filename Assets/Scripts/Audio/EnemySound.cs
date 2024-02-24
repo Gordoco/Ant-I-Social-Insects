@@ -6,8 +6,6 @@ using UnityEngine;
 public class EnemySound : MonoBehaviour
 {
     [SerializeField] private BaseBee _baseEnemy;
-    [SerializeField] private SFXPlayer _sfxPlayer;
-    //
 
     [Space(10)]
 
@@ -21,11 +19,14 @@ public class EnemySound : MonoBehaviour
     private void Awake()
     {
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        _sfxPlayer = new SFXPlayer(audioSource);
 
         _baseEnemy.Spawned += BaseEnemy_Spawned;
         _baseEnemy.Dead += BaseEnemy_Dead;
         _baseEnemy.Interaction += BaseEnemy_Interaction;
+    }
+
+    private void Start()
+    {
     }
 
     private void BaseEnemy_Interaction(object sender, FInteraction e)
@@ -45,18 +46,18 @@ public class EnemySound : MonoBehaviour
         }
 
         if (sfx == null) return;
-        _sfxPlayer.PlaySFX(sfx);
+        SFXPlayer.PlaySFX(sfx);
     }
 
     private void BaseEnemy_Dead(object sender, System.EventArgs e)
     {
         if (_dead == null) return;
-        _sfxPlayer.PlaySFX(_dead);
+        SFXPlayer.PlaySFX(_dead);
     }
 
     private void BaseEnemy_Spawned(object sender, System.EventArgs e)
     {
         if (_spawned == null) return;
-        _sfxPlayer.PlaySFX(_spawned);
+        SFXPlayer.PlaySFX(_spawned);
     }
 }

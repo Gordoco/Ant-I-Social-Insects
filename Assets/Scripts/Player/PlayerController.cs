@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.U2D;
@@ -172,7 +173,6 @@ public class PlayerController : MonoBehaviour
     {
         float terminalVelocity = terminalVelOverride ? fastFallTermialYVelocity : terminalYVelocity;
         rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, terminalVelocity, Mathf.Infinity));
-        //if (!terminalVelOverride) rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, terminalYVelocity, -terminalYVelocity));
     }
 
     private bool CheckForDead()
@@ -214,21 +214,25 @@ public class PlayerController : MonoBehaviour
                 int dirMult;
                 if (interaction.other.transform.position.x - gameObject.transform.position.x > 0) dirMult = -1;
                 else dirMult = 1;
-
+                // rb.velocity += jumpForce * interaction.bounceModifier * (Vector2)transform.right * dirMult;
                 StopAllCoroutines();
-                StartCoroutine(StunProcess());
-
+                StartCoroutine(StunProcess(interaction.stunTime));
                 rb.AddForce(jumpForce * interaction.bounceModifier * transform.right * dirMult);
+                break;
+            case EInteractionResult.Kill:
+                gameObject.layer = LayerMask.NameToLayer("womp_womp"); // player is DEAD
+                StopAllCoroutines();
+                StartCoroutine(StunProcess(interaction.stunTime));
                 break;
             default:
                 break;
         }
     }
 
-    private IEnumerator StunProcess()
+    private IEnumerator StunProcess(float seconds)
     {
         bStun = true;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(seconds);
         bStun = false;
     }
 }
