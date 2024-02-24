@@ -175,6 +175,7 @@ MonoBehaviour:
   swingMult: 5.5
   smackMult: 2
   knockoutForce: 600
+  stunTime: 0.2
   initialAngle: 135
   initialForce: 320
 --- !u!114 &8464379568277511935

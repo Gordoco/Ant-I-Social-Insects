@@ -175,6 +175,7 @@ MonoBehaviour:
   swingMult: 4.5
   smackMult: 3
   knockoutForce: 600
+  stunTime: 0.2
   Speed: 8
 --- !u!114 &1868837319235965803
 MonoBehaviour:
