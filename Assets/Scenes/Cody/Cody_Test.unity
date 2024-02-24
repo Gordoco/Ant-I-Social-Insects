@@ -388,6 +388,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1153624903744851286, guid: 7bbb194ace915014c81347804461d16b, type: 3}
+      propertyPath: beeTypes.Array.data[0]
+      value: 
+      objectReference: {fileID: 7702567728395924562, guid: f3f38070c10c5284d8fce0ac4a19c1d4, type: 3}
+    - target: {fileID: 1153624903744851286, guid: 7bbb194ace915014c81347804461d16b, type: 3}
+      propertyPath: beeTypes.Array.data[1]
+      value: 
+      objectReference: {fileID: 5934661527229425670, guid: 05bd09bd2623c454ea5f39eb4403bef4, type: 3}
     - target: {fileID: 8634825649954762588, guid: 7bbb194ace915014c81347804461d16b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.037011784
