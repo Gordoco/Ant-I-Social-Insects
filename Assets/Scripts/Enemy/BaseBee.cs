@@ -13,8 +13,8 @@ public abstract class BaseBee : MonoBehaviour
     [SerializeField] protected float swingMult = 3;
     [SerializeField] protected float smackMult = 4;
 
-    [SerializeField] private float knockoutForce = 5000.0f;
-    [SerializeField] private float stunTime;
+    [SerializeField] protected float knockoutForce = 5000.0f;
+    [SerializeField] protected float stunTime;
     private float weight;
 
     public abstract EnemySpawner GetSpawnerType(GameObject beeType);
