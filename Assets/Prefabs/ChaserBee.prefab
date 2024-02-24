@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7406369847690175703}
   - component: {fileID: 7093226353517970588}
   - component: {fileID: 6609617412545550776}
+  - component: {fileID: 1868837319235965803}
   m_Layer: 0
   m_Name: ChaserBee
   m_TagString: Untagged
@@ -172,3 +173,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockoutForce: 600
+--- !u!114 &1868837319235965803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5934661527229425670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aeddfecef22d134bb81812d069d70ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseEnemy: {fileID: 6609617412545550776}
+  _bounce: {fileID: 0}
+  _damage: {fileID: 0}
+  _kill: {fileID: 0}
+  _spawned: {fileID: 0}
+  _dead: {fileID: 0}
