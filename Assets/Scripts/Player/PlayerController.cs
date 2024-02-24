@@ -22,8 +22,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravityScale = 1.0f;
     [SerializeField] private float fastFallRate = 1.0f;
 
-    [SerializeField] private float swordLength = 1.0f;
-    [SerializeField] private float swingTime = 0.2f;
+    [SerializeField] private float swordLength = 1.0f; // AM: lol this hit box. how long is the sword actually?
+    [SerializeField] private float swingTime = 0.66f; // AM: this
 
     [SerializeField] private float bounceTolerance = 0.3f;
 
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     //----------------
 
     private Rigidbody2D rb;
-    private Animation anim;
+    private Animator animator;
     private bool bSwinging = false;
     private bool bHit = false;
     private float forward = 0;
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>(); //Guarunteed due to requirements
-        anim = GetComponent<Animation>(); // ^
+        animator = GetComponent<Animator>(); // ^
         StartGame(); //Should move to some sort of menu later
     }
 
@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour
     {
         InputHandling(Time.deltaTime); //For Debugging and testing without needing bees
         AddTerminalVelocity();
+        animator.SetBool("rising",rb.velocity.y > 0); // AM: Sucks. Should be calced based on some position delta. mb acceleration if it's easily available.
         if (CheckForDead())
         {
             Die?.Invoke(this, System.EventArgs.Empty);
@@ -149,6 +150,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Jump") && !bSwinging)
         {
             bSwinging = true;
+            animator.SetTrigger("swing");
 
             SwingSword?.Invoke(this, System.EventArgs.Empty);
         }
