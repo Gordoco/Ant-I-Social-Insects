@@ -1130,6 +1130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6262092313181568161}
   - component: {fileID: -8720273184003310149}
+  - component: {fileID: -2377869539182776595}
   - component: {fileID: 4765001266314085281}
   - component: {fileID: 1765152652829599114}
   - component: {fileID: 40301648743000503}
@@ -1203,7 +1204,13 @@ MonoBehaviour:
   jumpForce: 50
   initialAngle: 45
   initialForce: 100
-  animations: []
+  strafeSpeed: 10
+  maxStrafeSpeed: 1
+  terminalYVelocity: -10
+  swordLength: 1
+  swingTime: 0.2
+  attackAnimation: {fileID: 0}
+  jumpAnimation: {fileID: 0}
 --- !u!212 &4765001266314085281
 SpriteRenderer:
   m_ObjectHideFlags: 0
