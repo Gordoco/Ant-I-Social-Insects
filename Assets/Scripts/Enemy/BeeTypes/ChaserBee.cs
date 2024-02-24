@@ -8,7 +8,7 @@ public class ChaserBee : BaseBee
     public Vector2 SpawnPosition { get; set; }
     public Vector2 PlayerPosition { get; set; }
 
-    const float Speed = 20f; // positive number; moving to the right
+    [SerializeField] private float Speed = 20f; // positive number; moving to the right
 
     private Rigidbody2D _rb;
 
@@ -36,26 +36,6 @@ public class ChaserBee : BaseBee
     public override EnemySpawner GetSpawnerType(GameObject beeType)
     {
         return new ChaserBeeSpawner(20, beeType);
-    }
-
-    public override FInteraction Interact(EInteractionType interaction)
-    {
-        base.Interact(interaction);
-        FInteraction result;
-        switch (interaction)
-        {
-            case EInteractionType.Stomp:
-                result = new FInteraction(EInteractionResult.Bounce);
-                break;
-            case EInteractionType.Swing:
-                result = new FInteraction(EInteractionResult.Bounce, 0, swingMult);
-                break;
-            default:
-                result = new FInteraction(EInteractionResult.Bounce);
-                break;
-        }
-        OnInteraction(result);
-        return result;
     }
 
     private IEnumerator ChaserBeeAutoDeath()

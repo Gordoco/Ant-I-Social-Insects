@@ -1203,14 +1203,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749dd400ede740b479ca260682b4392b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 220
+  jumpForce: 300
   initialAngle: 40
   initialForce: 700
-  strafeSpeed: 50
+  strafeSpeed: 25
   maxStrafeSpeed: 10
   terminalYVelocity: -10
-  swordLength: 1
+  swordLength: 10
   swingTime: 0.2
+  bounceTolerance: 0.3
   attackAnimation: {fileID: 0}
   jumpAnimation: {fileID: 0}
 --- !u!212 &4765001266314085281
