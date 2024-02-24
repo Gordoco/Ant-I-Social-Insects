@@ -149,9 +149,9 @@ Transform:
   m_GameObject: {fileID: 431479250}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 16, y: 16, z: 0}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1674079996}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -233,8 +233,8 @@ Transform:
   m_GameObject: {fileID: 848553785}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: 16, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: 16, y: -16, z: 0}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1674079996}
@@ -302,6 +302,7 @@ GameObject:
   - component: {fileID: 1176334964}
   - component: {fileID: 1176334963}
   - component: {fileID: 1176334962}
+  - component: {fileID: 1176334965}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -383,6 +384,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1511610902}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1176334965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176334961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AssetsPPU: 100
+  m_RefResolutionX: 1920
+  m_RefResolutionY: 1080
+  m_UpscaleRT: 0
+  m_PixelSnapping: 0
+  m_CropFrameX: 1
+  m_CropFrameY: 1
+  m_StretchFill: 0
 --- !u!1 &1450006583
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,8 +430,8 @@ Transform:
   m_GameObject: {fileID: 1450006583}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 16, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: -16, y: -16, z: 0}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1674079996}
@@ -493,8 +514,8 @@ Transform:
   m_GameObject: {fileID: 1506877013}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: -16, y: 16, z: 0}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1674079996}
@@ -659,7 +680,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.9606118, b: 0, a: 1}
+  m_Color: {r: 0.6132076, g: 0.38884553, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -716,8 +737,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 848553786}
-  - {fileID: 431479251}
   - {fileID: 1450006584}
+  - {fileID: 431479251}
   - {fileID: 1506877014}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -734,9 +755,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1511610898}
-  Stuff: {fileID: 0}
   cam: {fileID: 1176334963}
-  panelResolution: {x: 1024, y: 1024}
+  panelHeight: 16
+  panelWidth: 32
   panels:
   - {fileID: 1450006583}
   - {fileID: 1506877013}
