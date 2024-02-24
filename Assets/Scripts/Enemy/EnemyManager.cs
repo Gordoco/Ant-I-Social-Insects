@@ -10,19 +10,24 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float minYSpawn;
     [SerializeField] private float maxYSpawn;
     [SerializeField] private float XSpawn;
+
+    [SerializeField] public GameObject poolTemplate;
     //---------------
 
-    float count = 0;
-    const float spawnTimer = 1;
-    private void Update()
+    private IEnumerator Start()
     {
-        count += Time.deltaTime;
-        if (count > spawnTimer)
+        EnemySpawner[] spawners = new EnemySpawner[1];
+        for (int i = 0; i < 1; i++)
         {
-            count = 0;
-            GameObject bee = Instantiate(GetBeeToSpawn(), new Vector3(XSpawn, Random.Range(minYSpawn, maxYSpawn), 0), transform.rotation);
-            bee.GetComponent<BaseBee>().Initialize(0);
-            if (bee == null) Debug.Log("ERROR: EnemyManager - Failed Bee Spawn");
+            spawners[i] = beeTypes[i].GetComponent<BaseBee>().GetSpawnerType(beeTypes[i]);
+        }
+        while (true)
+        {
+            for (int i = 0; i < spawners.Length; i++)
+            {
+                spawners[i].SpawnEnemy(GameObject.FindGameObjectWithTag("Player").transform);
+            }
+            yield return new WaitForSeconds(0.1f);
         }
     }
 

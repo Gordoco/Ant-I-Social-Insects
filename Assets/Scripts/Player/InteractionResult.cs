@@ -2,7 +2,8 @@ public enum EInteractionResult
 {
     Bounce,
     Damage,
-    Kill
+    Kill,
+    None
 }
 
 public struct FInteraction
