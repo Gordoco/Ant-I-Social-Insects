@@ -124,10 +124,15 @@ public class PlayerController : MonoBehaviour
         float val = Input.GetAxis("Horizontal");
 
         if (rb.velocity.x >= maxStrafeSpeed && val > 0 || rb.velocity.x <= -maxStrafeSpeed && val < 0) return;
-        if (rb.velocity.x >= -maxStrafeSpeed && rb.velocity.x <= maxStrafeSpeed && Mathf.Sign(val) != Mathf.Sign(forward) && val != 0) rb.velocity = new Vector2(0, rb.velocity.y);
-        rb.AddForce(transform.right * val * strafeSpeed * delta, ForceMode2D.Impulse);
+        if (rb.velocity.x >= -maxStrafeSpeed && rb.velocity.x <= maxStrafeSpeed && Mathf.Sign(val) != Mathf.Sign(forward) && val != 0)
+        {
+            Debug.Log("SHOULD STOP");
+            rb.velocity = new Vector2(5 * Mathf.Sign(val), rb.velocity.y);
+        }
+        if (Mathf.Abs((rb.velocity + ((Vector2)transform.right * val * strafeSpeed * delta)).x) < maxStrafeSpeed) rb.AddForce(transform.right * val * strafeSpeed * delta, ForceMode2D.Impulse);
 
-        forward = val;
+        if (val > 0) forward = 1;
+        else if (val < 0) forward = -1;
     }
 
     private void HandleVerticalMovement(float delta)

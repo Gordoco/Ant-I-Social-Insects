@@ -310,7 +310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2377869539182776595, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
       propertyPath: strafeSpeed
-      value: 60
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: -2377869539182776595, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
       propertyPath: swordLength
