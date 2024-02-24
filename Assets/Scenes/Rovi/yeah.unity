@@ -428,6 +428,10 @@ PrefabInstance:
       propertyPath: strafeIdleDecreaseSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: -2377869539182776595, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
+      propertyPath: fastFallTermialYVelocity
+      value: -15
+      objectReference: {fileID: 0}
     - target: {fileID: 492539655025246958, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9957804
