@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AnimationClip attackAnimation;
     [SerializeField] private AnimationClip jumpAnimation;
 
+    [SerializeField] private GameObject comboManager;
+
     public event System.EventHandler SwingSword;
     public event System.EventHandler Bounce;
     public event System.EventHandler Die;
@@ -91,7 +93,6 @@ public class PlayerController : MonoBehaviour
         else if (bHit)
         {
             HandleInteraction(beeClass.Interact(EInteractionType.Swing));
-            //Debug.Log("HEY YOU SLAPPED SOMEONE");
         }
         else
         {
@@ -208,6 +209,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInteraction(FInteraction interaction)
     {
+        comboManager.GetComponent<ComboManager>().KillBee();
         switch (interaction.result)
         {
             case EInteractionResult.Bounce:
@@ -215,7 +217,6 @@ public class PlayerController : MonoBehaviour
                 rb.gravityScale = gravityScale;
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce * interaction.bounceModifier * transform.up.y);
                 Bounce?.Invoke(this, System.EventArgs.Empty);
-                //anim.Play(jumpAnimation.name);
                 break;
             case EInteractionResult.Smack:
                 rb.velocity = new Vector2(0, rb.velocity.y);
