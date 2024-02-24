@@ -25,15 +25,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravityScale = 1.0f;
     [SerializeField] private float fastFallRate = 1.0f;
 
-    [SerializeField] private float swordLength = 1.0f; // AM: lol this hit box. how long is the sword actually?
-    [SerializeField] private float swingTime = 0.66f; // AM: this
+    [SerializeField] private float swordLength = 1.0f;
+    [SerializeField] private float swingTime = 0.66f; // AM-TODO: Use the actual length of the downswing_b clip
 
     [SerializeField] private float bounceTolerance = 0.3f;
 
     [SerializeField] private string gameOverScene = "Cody_Test";
-
-    [SerializeField] private AnimationClip attackAnimation;
-    [SerializeField] private AnimationClip jumpAnimation;
 
     public event System.EventHandler SwingSword;
     public event System.EventHandler Bounce;
@@ -64,7 +61,6 @@ public class PlayerController : MonoBehaviour
     {
         InputHandling(Time.deltaTime); //For Debugging and testing without needing bees
         AddTerminalVelocity();
-        animator.SetBool("rising",rb.velocity.y > 0); // AM: Sucks. Should be calced based on some position delta. mb acceleration if it's easily available.
         if (CheckForDead())
         {
             Die?.Invoke(this, System.EventArgs.Empty);
