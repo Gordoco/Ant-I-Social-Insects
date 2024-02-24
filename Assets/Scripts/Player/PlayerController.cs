@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.U2D;
@@ -228,6 +229,11 @@ public class PlayerController : MonoBehaviour
                 StopAllCoroutines();
                 StartCoroutine(StunProcess(interaction.stunTime));
                 rb.AddForce(jumpForce * interaction.bounceModifier * transform.right * dirMult);
+                break;
+            case EInteractionResult.Kill:
+                gameObject.layer = LayerMask.NameToLayer("womp_womp"); // player is DEAD
+                StopAllCoroutines();
+                StartCoroutine(StunProcess(interaction.stunTime));
                 break;
             default:
                 break;
