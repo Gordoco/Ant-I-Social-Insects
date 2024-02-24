@@ -6,18 +6,34 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Animation))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class PlayerController : MonoBehaviour
 {
     //EDITOR VARIABLES
-    public float jumpForce = 50.0f;
-    public float initialAngle = 45.0f;
-    public float initialForce = 100.0f;
+    [SerializeField] private float jumpForce = 50.0f;
 
-    public AnimationClip[] animations;
+    [SerializeField] private float initialAngle = 45.0f;
+    [SerializeField] private float initialForce = 100.0f;
+
+    [SerializeField] private float strafeSpeed = 10.0f;
+    [SerializeField] private float maxStrafeSpeed = 1.0f;
+    [SerializeField] private float terminalYVelocity = -10.0f;
+
+    [SerializeField] private float swordLength = 1.0f;
+    [SerializeField] private float swingTime = 0.2f;
+
+    [SerializeField] private AnimationClip attackAnimation;
+    [SerializeField] private AnimationClip jumpAnimation;
+
+    public event System.EventHandler SwingSword;
+    public event System.EventHandler Bounce;
+    public event System.EventHandler Die;
     //----------------
 
     private Rigidbody2D rb;
     private Animation anim;
+    private bool bSwinging = false;
+    private bool bHit = false;
 
     //UNITY MESSAGES------------------------------------------------------
     void Start()
@@ -27,16 +43,32 @@ public class PlayerController : MonoBehaviour
         StartGame(); //Should move to some sort of menu later
     }
 
+    float count = 0;
     // Update is called once per frame
     void Update()
     {
         InputHandling(); //For Debugging and testing without needing bees
+        AddTerminalVelocity();
+        if (!bSwinging) return;
+        count += Time.deltaTime;
+        if (count > swingTime)
+        {
+            bSwinging = false;
+            count = 0;
+            bHit = false;
+        }
+        else bHit = EvaluateHit().Length > 0;
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.gameObject.GetComponent<BaseBee>()) return;
         BaseBee beeClass = collision.gameObject.GetComponent<BaseBee>();
-        HandleInteraction(beeClass.Interact(EInteractionType.Stomp));
+        if (bHit)
+        {
+            HandleInteraction(beeClass.Interact(EInteractionType.Swing));
+            //Debug.Log("HEY YOU SLAPPED SOMEONE");
+        }
+        else HandleInteraction(beeClass.Interact(EInteractionType.Stomp));
     }
     //---------------------------------------------------------------------
 
@@ -53,23 +85,54 @@ public class PlayerController : MonoBehaviour
 
     private void InputHandling()
     {
-        //TEST_HandleJump();
+        HandleHorizontalMovement();
         HandleDownSwing();
+    }
+
+    private void HandleHorizontalMovement()
+    {
+        float val = Input.GetAxis("Horizontal");
+        rb.AddForce(transform.right * val * strafeSpeed);
+        rb.velocity = new Vector2(
+            Mathf.Clamp(rb.velocity.x, 0, maxStrafeSpeed),
+            rb.velocity.y
+            );
     }
 
     private void HandleDownSwing()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButton("Jump") && !bSwinging)
         {
-            Debug.Log("Sanity Check");
-            anim.Play(animations[0].name);
-            EvaluateHit();
+            /*//anim.Play(attackAnimation.name);
+            GameObject[] hits = EvaluateHit();
+            Debug.Log(hits.Length);
+            for (int i = 0; i < hits.Length; i++)
+            {
+                BaseBee beeClass = hits[i].GetComponent<BaseBee>();
+                if (!beeClass) continue;
+                Debug.Log("SLAPPED");
+                HandleInteraction(beeClass.Interact(EInteractionType.Swing));
+            }*/
+            bSwinging = true;
         }
     }
 
-    private bool EvaluateHit()
+    private void AddTerminalVelocity()
     {
-        return false;
+        rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, terminalYVelocity, -terminalYVelocity));
+    }
+
+    private GameObject[] EvaluateHit()
+    {
+        List<RaycastHit2D> results = new List<RaycastHit2D>();
+        ContactFilter2D cf = new ContactFilter2D();
+        int size = Physics2D.BoxCast(transform.position, GetComponent<Collider2D>().bounds.extents, 0, -transform.up, cf.NoFilter(), results, swordLength);
+        GameObject[] arr = new GameObject[size];
+        for (int i = 0; i < size; i++)
+        {
+            arr[i] = results[i].collider.gameObject;
+        }
+        return arr;
     }
 
     private void HandleInteraction(FInteraction interaction)
@@ -77,19 +140,12 @@ public class PlayerController : MonoBehaviour
         switch (interaction.result)
         {
             case EInteractionResult.Bounce:
+                rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(jumpForce * interaction.bounceModifier * transform.up);
+                //anim.Play(jumpAnimation.name);
                 break;
             default:
                 break;
-        }
-    }
-
-    private void TEST_HandleJump()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Sanity Check");
-            rb.AddForce(jumpForce * transform.up);
         }
     }
 }

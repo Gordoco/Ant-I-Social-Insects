@@ -6,14 +6,36 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public abstract class BaseBee : MonoBehaviour
 {
-    private float scoreThreshhold;
+    public event System.EventHandler Spawned;
+    public event System.EventHandler Dead;
+    public event System.EventHandler<FInteraction> Interaction;
 
-    public float GetScoreThreshold() { return scoreThreshhold; }
+    [SerializeField] protected float swingMult = 3;
 
-    abstract public FInteraction Interact(EInteractionType interactionType);
+    [SerializeField] private float knockoutForce = 5000.0f;
+    private float weight;
 
-    virtual public void Initialize(float minThreshold)
+    public abstract EnemySpawner GetSpawnerType(GameObject beeType);
+
+    public float GetSpawnWeight() { return weight; }
+
+    public virtual FInteraction Interact(EInteractionType interactionType)
     {
-        scoreThreshhold = minThreshold;
+        GetComponent<Rigidbody2D>().AddForce(-transform.up * knockoutForce);
+        return new FInteraction(EInteractionResult.None);
     }
+
+    public virtual void Initialize(float spawnWeight)
+    {
+        weight = spawnWeight;
+    }
+
+    protected virtual void OnSpawned() =>
+        Spawned?.Invoke(this, System.EventArgs.Empty);
+
+    protected virtual void OnDead() =>
+        Dead?.Invoke(this, System.EventArgs.Empty);
+
+    protected virtual void OnInteraction(FInteraction interaction) =>
+        Interaction?.Invoke(this, interaction);
 }

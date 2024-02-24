@@ -1,34 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class JumperBee : BaseBee
+public class ChaserBee : BaseBee
 {
-    //EDITOR VARIABLES
-    [SerializeField] public float initialAngle = 45.0f;
-    [SerializeField] private float initialForce = 200.0f;
-    //----------------
+    public Vector2 SpawnPosition { get; set; }
+    public Vector2 PlayerPosition { get; set; }
+
+    const float Speed = 20f; // positive number; moving to the right
+
+    private Rigidbody2D _rb;
+
+    private void Awake()
+    {
+       _rb = GetComponent<Rigidbody2D>();
+    }
 
     public override void Initialize(float minThreshold)
     {
-        base.Initialize(minThreshold);
         gameObject.SetActive(true);
-        Vector2 angularVector = new Vector2(
-            (Mathf.Cos(Mathf.Deg2Rad * initialAngle) * transform.right.x) + (Mathf.Sin(Mathf.Deg2Rad * initialAngle) * transform.right.y),
-            (Mathf.Sin(Mathf.Deg2Rad * initialAngle) * transform.right.x) + (Mathf.Cos(Mathf.Deg2Rad * initialAngle) * transform.right.y)
-            );
-        angularVector.Normalize();
-        GetComponent<Rigidbody2D>().AddForce(angularVector * initialForce);
-    }
 
-    private void Update()
-    {
-        if (transform.position.y < -8) gameObject.SetActive(false);
+        transform.position = SpawnPosition;
+        _rb.velocity =
+            new Vector2
+            (
+                Speed * Mathf.Sign(PlayerPosition.x - SpawnPosition.x),
+                0
+            );
+
+        StartCoroutine(ChaserBeeAutoDeath());
+        OnSpawned();
     }
 
     public override EnemySpawner GetSpawnerType(GameObject beeType)
     {
-        return new JumperBeeSpawner(200, beeType);
+        return new ChaserBeeSpawner(20, beeType);
     }
 
     public override FInteraction Interact(EInteractionType interaction)
@@ -47,6 +54,14 @@ public class JumperBee : BaseBee
                 result = new FInteraction(EInteractionResult.Bounce);
                 break;
         }
+        OnInteraction(result);
         return result;
+    }
+
+    private IEnumerator ChaserBeeAutoDeath()
+    {
+        yield return new WaitForSeconds(4f);
+        gameObject.SetActive(false);
+        OnDead();
     }
 }
