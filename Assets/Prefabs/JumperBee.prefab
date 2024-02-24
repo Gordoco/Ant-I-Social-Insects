@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6355964230552244854}
   - component: {fileID: 4654245403653882270}
   m_Layer: 0
-  m_Name: TestEnemy
+  m_Name: JumperBee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae9560db2bfe2b4bbda36a21ac967f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swingMult: 4.25
   knockoutForce: 600
   initialAngle: 135
   initialForce: 400

@@ -11,38 +11,79 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float maxYSpawn;
     [SerializeField] private float XSpawn;
 
+    [SerializeField] private float jumperRate = 0.2f;
+    [SerializeField] private float specialRate = 0.7f;
+
     [SerializeField] public GameObject poolTemplate;
     //---------------
 
     private int score = 0;
 
-    private IEnumerator Start()
+    /*private IEnumerator Start()
     {
-        EnemySpawner[] spawners = new EnemySpawner[2];
-        for (int i = 0; i < 2; i++)
-        {
-            spawners[i] = beeTypes[i].GetComponent<BaseBee>().GetSpawnerType(beeTypes[i]);
-        }
         while (true)
         {
             score++;
-            for (int i = 0; i < spawners.Length; i++)
-            {
-                spawners[i].SpawnEnemy(GameObject.FindGameObjectWithTag("Player").transform);
-            }
-            yield return new WaitForSeconds(0.1f);
+            SpawnSpecialBee();
+            SpawnJumperBaseline();
+            yield return new WaitForSeconds(0.3f);
         }
+    }*/
+
+    float jumperCount = 0;
+    float specialCount = 0;
+    private void Update()
+    {
+        jumperCount += Time.deltaTime;
+        specialCount += Time.deltaTime;
+        if (jumperCount > jumperRate)
+        {
+            SpawnJumperBee();
+            jumperCount = 0;
+        }
+        if (specialCount > specialRate)
+        {
+            SpawnSpecialBee();
+            specialCount = 0;
+        }
+    }
+
+    private void SpawnSpecialBee()
+    {
+        GameObject bee = GetBeeToSpawn();
+        EnemySpawner spawner = bee.GetComponent<BaseBee>().GetSpawnerType(bee);
+        spawner.SpawnEnemy(GameObject.FindGameObjectWithTag("Player").transform);
+    }
+
+    private void SpawnJumperBee()
+    {
+        GameObject bee = null;
+        for (int i = 0; i < beeTypes.Length; i++)
+        {
+            if (beeTypes[i].GetComponent<JumperBee>())
+            {
+                bee = beeTypes[i];
+            }
+        }
+        if (!bee) return;
+        EnemySpawner spawner = bee.GetComponent<BaseBee>().GetSpawnerType(bee);
+        spawner.SpawnEnemy(GameObject.FindGameObjectWithTag("Player").transform);
     }
 
     public GameObject GetBeeToSpawn()
     {
         float sum = 0;
-        for (int i = 0; i < beeTypes.Length; i++) { sum += beeTypes[i].GetComponent<BaseBee>().GetScoreThreshold(); }
+        for (int i = 0; i < beeTypes.Length; i++) 
+        {
+            if (beeTypes[i].GetComponent<JumperBee>()) continue;
+            sum += beeTypes[i].GetComponent<BaseBee>().GetSpawnWeight(); 
+        }
         float rand = Random.Range(0.0f, sum);
         float count = 0;
         for (int i = 0; i < beeTypes.Length; i++)
         {
-            count += beeTypes[i].GetComponent<BaseBee>().GetScoreThreshold();
+            if (beeTypes[i].GetComponent<JumperBee>()) continue;
+            count += beeTypes[i].GetComponent<BaseBee>().GetSpawnWeight();
             if (count >= rand) return beeTypes[i];
         }
         Debug.Log("ERROR: EnemyManager - No Valid Bee Type Chosen");
