@@ -226,7 +226,7 @@ public class PlayerController : MonoBehaviour
                 else dirMult = 1;
                 // rb.velocity += jumpForce * interaction.bounceModifier * (Vector2)transform.right * dirMult;
                 StopAllCoroutines();
-                StartCoroutine(StunProcess());
+                StartCoroutine(StunProcess(interaction.stunTime));
                 rb.AddForce(jumpForce * interaction.bounceModifier * transform.right * dirMult);
                 break;
             default:
@@ -234,10 +234,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private IEnumerator StunProcess()
+    private IEnumerator StunProcess(float seconds)
     {
         bStun = true;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(seconds);
         bStun = false;
     }
 }
