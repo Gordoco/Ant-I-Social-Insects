@@ -17,8 +17,6 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] public GameObject poolTemplate;
     //---------------
 
-    private int score = 0;
-
     /*private IEnumerator Start()
     {
         while (true)
