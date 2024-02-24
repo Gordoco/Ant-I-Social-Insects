@@ -11,8 +11,10 @@ public abstract class BaseBee : MonoBehaviour
     public event System.EventHandler<FInteraction> Interaction;
 
     [SerializeField] protected float swingMult = 3;
+    [SerializeField] protected float smackMult = 4;
 
-    [SerializeField] private float knockoutForce = 5000.0f;
+    [SerializeField] protected float knockoutForce = 5000.0f;
+    [SerializeField] protected float stunTime;
     private float weight;
 
     public abstract EnemySpawner GetSpawnerType(GameObject beeType);
@@ -22,7 +24,24 @@ public abstract class BaseBee : MonoBehaviour
     public virtual FInteraction Interact(EInteractionType interactionType)
     {
         GetComponent<Rigidbody2D>().AddForce(-transform.up * knockoutForce);
-        return new FInteraction(EInteractionResult.None);
+        FInteraction result;
+        switch (interactionType)
+        {
+            case EInteractionType.Stomp:
+                result = new FInteraction(gameObject, EInteractionResult.Bounce, 1, stunTime);
+                break;
+            case EInteractionType.Swing:
+                result = new FInteraction(gameObject, EInteractionResult.Bounce, swingMult, stunTime);
+                break;
+            case EInteractionType.Smack:
+                result = new FInteraction(gameObject, EInteractionResult.Smack, smackMult, stunTime);
+                break;
+            default:
+                result = new FInteraction(gameObject, EInteractionResult.Bounce, 0, stunTime);
+                break;
+        }
+        OnInteraction(result);
+        return result;
     }
 
     public virtual void Initialize(float spawnWeight)
