@@ -278,8 +278,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1116235980}
   - component: {fileID: 1116235979}
+  - component: {fileID: 1116235981}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: single among us
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16135b79e50a70b4481309d46889bc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sfxPlayer: {fileID: 1116235981}
 --- !u!4 &1116235980
 Transform:
   m_ObjectHideFlags: 0
@@ -312,6 +314,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1116235981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116235978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92b7d5592229b8145bd172bb5664585b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1277935292
 PrefabInstance:
   m_ObjectHideFlags: 0
