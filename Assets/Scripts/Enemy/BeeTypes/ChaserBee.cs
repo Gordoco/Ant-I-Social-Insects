@@ -31,8 +31,15 @@ public class ChaserBee : BaseBee
 
         StartCoroutine(ChaserBeeAutoDeath());
     }
+
+    public override EnemySpawner GetSpawnerType(GameObject beeType)
+    {
+        return new ChaserBeeSpawner(20, beeType);
+    }
+
     public override FInteraction Interact(EInteractionType interaction)
     {
+        base.Interact(interaction);
         FInteraction result;
         switch (interaction)
         {

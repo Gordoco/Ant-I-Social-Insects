@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private AnimationClip attackAnimation;
     [SerializeField] private AnimationClip jumpAnimation;
+
+    public event System.EventHandler SwingSword;
+    public event System.EventHandler Bounce;
+    public event System.EventHandler Die;
     //----------------
 
     private Rigidbody2D rb;
@@ -38,7 +42,7 @@ public class PlayerController : MonoBehaviour
         InputHandling(); //For Debugging and testing without needing bees
         AddTerminalVelocity();
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.gameObject.GetComponent<BaseBee>()) return;
         BaseBee beeClass = collision.gameObject.GetComponent<BaseBee>();
@@ -78,14 +82,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Jump"))
         {
             Debug.Log("Sanity Check");
-            anim.Play(attackAnimation.name);
+            //anim.Play(attackAnimation.name);
             EvaluateHit();
         }
     }
 
     private void AddTerminalVelocity()
     {
-        rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, terminalYVelocity, Mathf.Infinity));
+        rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, terminalYVelocity, -terminalYVelocity));
     }
 
     private bool EvaluateHit()
@@ -98,8 +102,9 @@ public class PlayerController : MonoBehaviour
         switch (interaction.result)
         {
             case EInteractionResult.Bounce:
+                rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(jumpForce * interaction.bounceModifier * transform.up);
-                anim.Play(jumpAnimation.name);
+                //anim.Play(jumpAnimation.name);
                 break;
             default:
                 break;

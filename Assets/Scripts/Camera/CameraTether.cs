@@ -16,12 +16,12 @@ public class CameraTether : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (!player) return;
         float dist = (player.transform.position.y - gameObject.transform.position.y);
         Debug.Log(dist);
-        if (Mathf.Abs(dist) > distThreshold)
+        if (dist >= distThreshold || dist < -(distThreshold - 4f))
         {
             transform.position += new Vector3(0, player.GetComponent<Rigidbody2D>().velocity.y * Time.deltaTime, 0);
             transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, 0, Mathf.Infinity), transform.position.z);

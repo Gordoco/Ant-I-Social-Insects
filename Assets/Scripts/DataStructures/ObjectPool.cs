@@ -5,18 +5,16 @@ using UnityEngine;
 /**
  * Implementation of an abstract object pool for efficient mass object management
  */
-public class ObjectPool : MonoBehaviour
+public class ObjectPool
 {
-    [SerializeField] private GameObject _prefab;
-    [SerializeField] private int _poolSize;
     private GameObject[] objectPool;
 
-    private void Awake()
+    public void initializePool(int poolSize, GameObject objectType)
     {
-        objectPool = new GameObject[_poolSize];
-        for (int i = 0; i < _poolSize; i++)
+        objectPool = new GameObject[poolSize];
+        for (int i = 0; i < poolSize; i++)
         {
-            objectPool[i] = Instantiate(_prefab, Vector3.zero, Quaternion.identity) as GameObject;
+            objectPool[i] = Object.Instantiate(objectType, Vector3.zero, Quaternion.identity);
             objectPool[i].SetActive(false);
         }
     }
