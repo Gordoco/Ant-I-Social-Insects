@@ -18,7 +18,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float strafeSpeed = 10.0f;
     [SerializeField] private float maxStrafeSpeed = 1.0f;
+    [SerializeField] private float strafeIdleDecreaseSpeed;
     [SerializeField] private float terminalYVelocity = -10.0f;
+    [SerializeField] private float fastFallTermialYVelocity = -25f;
     [SerializeField] private float gravityScale = 1.0f;
     [SerializeField] private float fastFallRate = 1.0f;
 
@@ -44,6 +46,8 @@ public class PlayerController : MonoBehaviour
     private float forward = 0;
     private bool terminalVelOverride = false;
     private bool bDead = false;
+
+    private bool bStun = false;
 
     //UNITY MESSAGES------------------------------------------------------
     void Start()
@@ -121,18 +125,23 @@ public class PlayerController : MonoBehaviour
 
     private void HandleHorizontalMovement(float delta)
     {
+        if (bStun) return;
         float val = Input.GetAxis("Horizontal");
 
         if (rb.velocity.x >= maxStrafeSpeed && val > 0 || rb.velocity.x <= -maxStrafeSpeed && val < 0) return;
         if (rb.velocity.x >= -maxStrafeSpeed && rb.velocity.x <= maxStrafeSpeed && Mathf.Sign(val) != Mathf.Sign(forward) && val != 0)
         {
-            Debug.Log("SHOULD STOP");
             rb.velocity = new Vector2(5 * Mathf.Sign(val), rb.velocity.y);
         }
         if (Mathf.Abs((rb.velocity + ((Vector2)transform.right * val * strafeSpeed * delta)).x) < maxStrafeSpeed) rb.AddForce(transform.right * val * strafeSpeed * delta, ForceMode2D.Impulse);
 
         if (val > 0) forward = 1;
         else if (val < 0) forward = -1;
+        else
+        {
+            float x = Mathf.Lerp(rb.velocity.x * -1, 0, strafeIdleDecreaseSpeed);
+            rb.AddForce(new Vector2(x, 0), ForceMode2D.Impulse);
+        }
     }
 
     private void HandleVerticalMovement(float delta)
@@ -161,7 +170,9 @@ public class PlayerController : MonoBehaviour
 
     private void AddTerminalVelocity()
     {
-        if (!terminalVelOverride) rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, terminalYVelocity, -terminalYVelocity));
+        float terminalVelocity = terminalVelOverride ? fastFallTermialYVelocity : terminalYVelocity;
+        rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, terminalVelocity, Mathf.Infinity));
+        //if (!terminalVelOverride) rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, terminalYVelocity, -terminalYVelocity));
     }
 
     private bool CheckForDead()
@@ -203,10 +214,21 @@ public class PlayerController : MonoBehaviour
                 int dirMult;
                 if (interaction.other.transform.position.x - gameObject.transform.position.x > 0) dirMult = -1;
                 else dirMult = 1;
+
+                StopAllCoroutines();
+                StartCoroutine(StunProcess());
+
                 rb.AddForce(jumpForce * interaction.bounceModifier * transform.right * dirMult);
                 break;
             default:
                 break;
         }
+    }
+
+    private IEnumerator StunProcess()
+    {
+        bStun = true;
+        yield return new WaitForSeconds(0.2f);
+        bStun = false;
     }
 }
