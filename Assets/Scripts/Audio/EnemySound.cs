@@ -7,6 +7,7 @@ public class EnemySound : MonoBehaviour
 {
     [SerializeField] private BaseBee _baseEnemy;
     [SerializeField] private SFXPlayer _sfxPlayer;
+    //
 
     [Space(10)]
 
@@ -19,6 +20,9 @@ public class EnemySound : MonoBehaviour
 
     private void Awake()
     {
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        _sfxPlayer = new SFXPlayer(audioSource);
+
         _baseEnemy.Spawned += BaseEnemy_Spawned;
         _baseEnemy.Dead += BaseEnemy_Dead;
         _baseEnemy.Interaction += BaseEnemy_Interaction;
