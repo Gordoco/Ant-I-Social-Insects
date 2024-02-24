@@ -10,12 +10,14 @@ public abstract class BaseBee : MonoBehaviour
     public event System.EventHandler Dead;
     public event System.EventHandler<FInteraction> Interaction;
 
+    [SerializeField] protected float swingMult = 3;
+
     [SerializeField] private float knockoutForce = 5000.0f;
-    private float scoreThreshhold;
+    private float weight;
 
     public abstract EnemySpawner GetSpawnerType(GameObject beeType);
 
-    public float GetScoreThreshold() { return scoreThreshhold; }
+    public float GetSpawnWeight() { return weight; }
 
     public virtual FInteraction Interact(EInteractionType interactionType)
     {
@@ -23,9 +25,9 @@ public abstract class BaseBee : MonoBehaviour
         return new FInteraction(EInteractionResult.None);
     }
 
-    public virtual void Initialize(float minThreshold)
+    public virtual void Initialize(float spawnWeight)
     {
-        scoreThreshhold = minThreshold;
+        weight = spawnWeight;
     }
 
     protected virtual void OnSpawned() =>

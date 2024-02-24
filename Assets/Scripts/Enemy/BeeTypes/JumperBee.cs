@@ -41,7 +41,7 @@ public class JumperBee : BaseBee
                 result = new FInteraction(EInteractionResult.Bounce);
                 break;
             case EInteractionType.Swing:
-                result = new FInteraction(EInteractionResult.Bounce, 0, 3);
+                result = new FInteraction(EInteractionResult.Bounce, 0, swingMult);
                 break;
             default:
                 result = new FInteraction(EInteractionResult.Bounce);

@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d1c512af7dfc704597d6149fbb7b8c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swingMult: 4.25
   knockoutForce: 600
 --- !u!114 &1868837319235965803
 MonoBehaviour:
