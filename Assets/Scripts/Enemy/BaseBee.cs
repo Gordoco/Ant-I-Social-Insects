@@ -39,6 +39,7 @@ public abstract class BaseBee : MonoBehaviour
                 result = new FInteraction(gameObject, EInteractionResult.Bounce);
                 break;
         }
+        OnInteraction(result);
         return result;
     }
 
