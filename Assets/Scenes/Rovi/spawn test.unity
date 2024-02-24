@@ -435,8 +435,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1919104722}
-  - component: {fileID: 1919104721}
-  - component: {fileID: 1919104723}
   m_Layer: 0
   m_Name: Chaser Bee Spawner
   m_TagString: Untagged
@@ -444,25 +442,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1919104721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1919104720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 936eb78d28597764f8269feb5a60e57b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyPool: {fileID: 1919104723}
-  _player: {fileID: 1503005658}
-  _spawnLocations:
-  - {fileID: 5584783}
-  - {fileID: 1713584802}
-  - {fileID: 1892790489}
-  - {fileID: 1763340495}
 --- !u!4 &1919104722
 Transform:
   m_ObjectHideFlags: 0
@@ -478,20 +457,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1919104723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1919104720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05adb24ce8aba774cb764c831646d70f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 5934661527229425670, guid: 05bd09bd2623c454ea5f39eb4403bef4, type: 3}
-  _poolSize: 20
 --- !u!1001 &1672320165143251029
 PrefabInstance:
   m_ObjectHideFlags: 0

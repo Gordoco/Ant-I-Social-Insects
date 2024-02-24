@@ -27,4 +27,13 @@ public abstract class BaseBee : MonoBehaviour
     {
         scoreThreshhold = minThreshold;
     }
+
+    protected virtual void OnSpawned() =>
+        Spawned?.Invoke(this, System.EventArgs.Empty);
+
+    protected virtual void OnDead() =>
+        Dead?.Invoke(this, System.EventArgs.Empty);
+
+    protected virtual void OnInteraction(FInteraction interaction) =>
+        Interaction?.Invoke(this, interaction);
 }
