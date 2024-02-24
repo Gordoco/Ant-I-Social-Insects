@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fastFallRate = 1.0f;
 
     [SerializeField] private float swordLength = 1.0f;
-    [SerializeField] private float swingTime = 0.2f;
+    [SerializeField] private float swingTime = 0.66f; // AM-TODO: Use the actual length of the downswing_b clip
 
     [SerializeField] private float bounceTolerance = 0.3f;
 
@@ -36,14 +36,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AnimationClip jumpAnimation;
 
     [SerializeField] private GameObject comboManager;
-
+    
     public event System.EventHandler SwingSword;
     public event System.EventHandler Bounce;
     public event System.EventHandler Die;
+    public event System.EventHandler SwordHit;
     //----------------
 
     private Rigidbody2D rb;
-    private Animation anim;
+    private Animator animator;
     private bool bSwinging = false;
     private bool bHit = false;
     private float forward = 0;
@@ -56,7 +57,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>(); //Guarunteed due to requirements
-        anim = GetComponent<Animation>(); // ^
+        animator = GetComponent<Animator>(); // ^
         StartGame(); //Should move to some sort of menu later
     }
 
@@ -173,6 +174,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Jump") && !bSwinging)
         {
             bSwinging = true;
+            animator.SetTrigger("swing");
 
             SwingSword?.Invoke(this, System.EventArgs.Empty);
         }
@@ -204,6 +206,7 @@ public class PlayerController : MonoBehaviour
         {
             arr[i] = results[i].collider.gameObject;
         }
+        if (size > 0) SwordHit?.Invoke(this, System.EventArgs.Empty);
         return arr;
     }
 
