@@ -1,7 +1,11 @@
+
+
+using UnityEngine;
+
 public enum EInteractionResult
 {
     Bounce,
-    Damage,
+    Smack,
     Kill,
     None
 }
@@ -9,13 +13,13 @@ public enum EInteractionResult
 public struct FInteraction
 {
     public EInteractionResult result;
-    public float damage;
     public float bounceModifier;
+    public GameObject other;
 
-    public FInteraction(EInteractionResult inResult, float inDamage = 0, float inBounceModifier = 1)
+    public FInteraction(GameObject inOther, EInteractionResult inResult, float inBounceModifier = 1)
     {
+        other = inOther;
         result = inResult;
-        damage = inDamage;
         bounceModifier = inBounceModifier;
     }
 }

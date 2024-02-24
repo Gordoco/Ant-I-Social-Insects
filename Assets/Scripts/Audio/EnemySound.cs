@@ -37,7 +37,7 @@ public class EnemySound : MonoBehaviour
             case EInteractionResult.Bounce:
                 sfx = _bounce;
                 break;
-            case EInteractionResult.Damage:
+            case EInteractionResult.Smack:
                 sfx = _damage;
                 break;
             case EInteractionResult.Kill:

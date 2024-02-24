@@ -31,7 +31,7 @@ public class JumperBee : BaseBee
         return new JumperBeeSpawner(200, beeType);
     }
 
-    public override FInteraction Interact(EInteractionType interaction)
+    /*public override FInteraction Interact(EInteractionType interaction)
     {
         base.Interact(interaction);
         FInteraction result;
@@ -43,10 +43,13 @@ public class JumperBee : BaseBee
             case EInteractionType.Swing:
                 result = new FInteraction(EInteractionResult.Bounce, 0, swingMult);
                 break;
+            case EInteractionType.Smack:
+                result = new FInteraction(EInteractionResult.Smack);
+                break;
             default:
                 result = new FInteraction(EInteractionResult.Bounce);
                 break;
         }
         return result;
-    }
+    }*/
 }

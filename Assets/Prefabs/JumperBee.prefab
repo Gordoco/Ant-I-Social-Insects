@@ -171,7 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae9560db2bfe2b4bbda36a21ac967f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swingMult: 4.25
+  swingMult: 5.5
+  smackMult: 2
   knockoutForce: 600
   initialAngle: 135
-  initialForce: 400
+  initialForce: 320

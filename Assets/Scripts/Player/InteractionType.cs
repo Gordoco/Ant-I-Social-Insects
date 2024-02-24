@@ -1,5 +1,6 @@
 public enum EInteractionType
 {
     Stomp,
-    Swing
+    Swing,
+    Smack
 }
