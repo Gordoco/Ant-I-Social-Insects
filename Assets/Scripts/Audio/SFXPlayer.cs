@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SFXPlayer
+public class SFXPlayer : MonoBehaviour
 {
-    private AudioSource _audioSource;
+    private static AudioSource _audioSource;
 
-    public SFXPlayer(AudioSource audioSource)
+    private void Awake()
     {
-        _audioSource = audioSource;
+        _audioSource = gameObject.AddComponent<AudioSource>();
     }
 
-    public void PlaySFX(SFX sfx)
+    public static void PlaySFX(SFX sfx)
     {
         _audioSource.PlayOneShot(sfx.Audio, sfx.Volume);
     }
