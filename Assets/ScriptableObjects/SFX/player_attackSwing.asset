@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2603f432bf8cbad44a0d89c722081a32, type: 3}
-  m_Name: player_attackHit
+  m_Name: player_attackSwing
   m_EditorClassIdentifier: 
   _audioClips:
-  - {fileID: 8300000, guid: 4fe5f8dfe9d5c984ca1012b1f31fc503, type: 3}
-  - {fileID: 8300000, guid: cac081e3fce80b947a1dd1e90b495e61, type: 3}
-  _volume: 0.716
+  - {fileID: 8300000, guid: 5ac88828bd1c9c14ab0781baf6fc0aa4, type: 3}
+  - {fileID: 8300000, guid: 619deb30464eb874ca502bb4622cff2a, type: 3}
+  _volume: 0.386
