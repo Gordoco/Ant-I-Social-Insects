@@ -46,6 +46,9 @@ public class ChaserBee : BaseBee
             case EInteractionType.Stomp:
                 result = new FInteraction(EInteractionResult.Bounce);
                 break;
+            case EInteractionType.Swing:
+                result = new FInteraction(EInteractionResult.Bounce, 0, 3);
+                break;
             default:
                 result = new FInteraction(EInteractionResult.Bounce);
                 break;

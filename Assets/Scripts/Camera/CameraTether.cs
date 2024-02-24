@@ -20,8 +20,7 @@ public class CameraTether : MonoBehaviour
     {
         if (!player) return;
         float dist = (player.transform.position.y - gameObject.transform.position.y);
-        Debug.Log(dist);
-        if (dist >= distThreshold || dist < -(distThreshold - 4f))
+        if ((dist > distThreshold && player.GetComponent<Rigidbody2D>().velocity.y > 0) || (dist < 1 && player.GetComponent<Rigidbody2D>().velocity.y < 0))
         {
             transform.position += new Vector3(0, player.GetComponent<Rigidbody2D>().velocity.y * Time.deltaTime, 0);
             transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, 0, Mathf.Infinity), transform.position.z);

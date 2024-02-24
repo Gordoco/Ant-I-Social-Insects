@@ -6,16 +6,21 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Animation))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class PlayerController : MonoBehaviour
 {
     //EDITOR VARIABLES
     [SerializeField] private float jumpForce = 50.0f;
+
     [SerializeField] private float initialAngle = 45.0f;
     [SerializeField] private float initialForce = 100.0f;
 
     [SerializeField] private float strafeSpeed = 10.0f;
     [SerializeField] private float maxStrafeSpeed = 1.0f;
     [SerializeField] private float terminalYVelocity = -10.0f;
+
+    [SerializeField] private float swordLength = 1.0f;
+    [SerializeField] private float swingTime = 0.2f;
 
     [SerializeField] private AnimationClip attackAnimation;
     [SerializeField] private AnimationClip jumpAnimation;
@@ -27,6 +32,8 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animation anim;
+    private bool bSwinging = false;
+    private bool bHit = false;
 
     //UNITY MESSAGES------------------------------------------------------
     void Start()
@@ -36,11 +43,21 @@ public class PlayerController : MonoBehaviour
         StartGame(); //Should move to some sort of menu later
     }
 
+    float count = 0;
     // Update is called once per frame
     void Update()
     {
         InputHandling(); //For Debugging and testing without needing bees
         AddTerminalVelocity();
+        if (!bSwinging) return;
+        count += Time.deltaTime;
+        if (count > swingTime)
+        {
+            bSwinging = false;
+            count = 0;
+            bHit = false;
+        }
+        else bHit = EvaluateHit().Length > 0;
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -79,11 +96,19 @@ public class PlayerController : MonoBehaviour
 
     private void HandleDownSwing()
     {
-        if (Input.GetButton("Jump"))
+        if (Input.GetButton("Jump") && !bSwinging)
         {
-            Debug.Log("Sanity Check");
-            //anim.Play(attackAnimation.name);
-            EvaluateHit();
+            /*//anim.Play(attackAnimation.name);
+            GameObject[] hits = EvaluateHit();
+            Debug.Log(hits.Length);
+            for (int i = 0; i < hits.Length; i++)
+            {
+                BaseBee beeClass = hits[i].GetComponent<BaseBee>();
+                if (!beeClass) continue;
+                Debug.Log("SLAPPED");
+                HandleInteraction(beeClass.Interact(EInteractionType.Swing));
+            }*/
+            bSwinging = true;
         }
     }
 
@@ -92,9 +117,17 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, terminalYVelocity, -terminalYVelocity));
     }
 
-    private bool EvaluateHit()
+    private GameObject[] EvaluateHit()
     {
-        return false;
+        List<RaycastHit2D> results = new List<RaycastHit2D>();
+        ContactFilter2D cf = new ContactFilter2D();
+        int size = Physics2D.BoxCast(transform.position, GetComponent<Collider2D>().bounds.extents, 0, -transform.up, cf.NoFilter(), results, swordLength);
+        GameObject[] arr = new GameObject[size];
+        for (int i = 0; i < size; i++)
+        {
+            arr[i] = results[i].collider.gameObject;
+        }
+        return arr;
     }
 
     private void HandleInteraction(FInteraction interaction)
