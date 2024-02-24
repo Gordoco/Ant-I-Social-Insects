@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     public event System.EventHandler SwingSword;
     public event System.EventHandler Bounce;
     public event System.EventHandler Die;
+    public event System.EventHandler SwordHit;
     //----------------
 
     private Rigidbody2D rb;
@@ -201,6 +202,7 @@ public class PlayerController : MonoBehaviour
         {
             arr[i] = results[i].collider.gameObject;
         }
+        if (size > 0) SwordHit?.Invoke(this, System.EventArgs.Empty);
         return arr;
     }
 

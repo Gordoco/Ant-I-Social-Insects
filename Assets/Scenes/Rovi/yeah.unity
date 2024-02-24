@@ -386,7 +386,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2377869539182776595, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
       propertyPath: jumpForce
-      value: 310
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -2377869539182776595, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
+      propertyPath: swingTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -2377869539182776595, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
       propertyPath: strafeSpeed
@@ -426,7 +430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2377869539182776595, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
       propertyPath: strafeIdleDecreaseSpeed
-      value: 5
+      value: 0.96
       objectReference: {fileID: 0}
     - target: {fileID: -2377869539182776595, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
       propertyPath: fastFallTermialYVelocity
@@ -579,6 +583,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8457577850903071397, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1138952128}
+    - targetCorrespondingSourceObject: {fileID: 8457577850903071397, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1138952130}
   m_SourcePrefab: {fileID: 100100000, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
 --- !u!1 &1138952127 stripped
 GameObject:
@@ -600,6 +607,32 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &1138952129 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -2377869539182776595, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
+  m_PrefabInstance: {fileID: 1138952126}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138952127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 749dd400ede740b479ca260682b4392b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1138952130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138952127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f420027372c744d97edc57c9346db6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pc: {fileID: 1138952129}
+  _swordHit: {fileID: 11400000, guid: db0543bdf7828614dadf9d5b739bd2e6, type: 2}
+  _swordSwing: {fileID: 11400000, guid: 4f37afeb6c8b6a1418c82156a6dbc83c, type: 2}
 --- !u!1 &1913787256
 GameObject:
   m_ObjectHideFlags: 0
