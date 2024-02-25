@@ -19,6 +19,8 @@ public class ComboManager : MonoBehaviour
     [SerializeField] private float increasedFactor = 0.1f;
     [SerializeField] private float rotationFactor = 0.1f;
 
+    public event System.EventHandler ComboMilestoneAchieved;
+
     private void Start()
     {
         if (!text || !comboSounds || !progBar) Destroy(gameObject);
@@ -55,6 +57,7 @@ public class ComboManager : MonoBehaviour
             text.rectTransform.anchoredPosition = initLocalPos;
             StartCoroutine(ComboTextAnimation(lastMilestone));
             lastMilestone++;
+            OnComboMilestoneAchieved();
         }
     }
 
@@ -75,4 +78,7 @@ public class ComboManager : MonoBehaviour
             yield return new WaitForSeconds(1 / 12);
         }
     }
+
+    protected virtual void OnComboMilestoneAchieved() =>
+        ComboMilestoneAchieved?.Invoke(this, System.EventArgs.Empty);
 }
