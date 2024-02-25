@@ -6,7 +6,7 @@ public class HoneyBlob : BaseBee
 {
     //EDITOR VARIABLES
     [SerializeField] public float initialAngle = 45.0f;
-    [SerializeField] private float initialForce = 200.0f;
+    [SerializeField] private float initialForce = 600.0f;
     //----------------
 
     public override void Initialize(float minThreshold)
@@ -29,7 +29,7 @@ public class HoneyBlob : BaseBee
 
     public override EnemySpawner GetSpawnerType(GameObject beeType)
     {
-        return new HoneyBlobSpawner(200, beeType);
+        return new HoneyBlobSpawner(50, beeType);
     }
 
     public override FInteraction Interact(EInteractionType interactionType)
@@ -38,9 +38,11 @@ public class HoneyBlob : BaseBee
         FInteraction result;
         switch (interactionType)
         {
+            case EInteractionType.Stomp:
+            case EInteractionType.Swing:
             // only interaction with honey blob
             case EInteractionType.Smack:
-                result = new FInteraction(gameObject, EInteractionResult.Kill, smackMult, stunTime);
+                result = new FInteraction(gameObject, EInteractionResult.Kill, smackMult, stunTime, true, false);
                 break;
 
             // otherwise do nothing

@@ -30,7 +30,10 @@ public class JumperBeeSpawner : EnemySpawner
 
         JumperBee bee = enemyObj.GetComponent<JumperBee>();
 
-        bee.initialAngle = Random.Range(0, 2) == 1 ? 45 : 135;
+        int rand = Random.Range(0, 2);
+        bee.initialAngle = rand == 1 ? 45 : 135;
+        bee.transform.localScale *= rand == 1 ? -1 : 1;
+        bee.transform.localScale = new Vector3(bee.transform.localScale.x, 1, 1);
         bee.transform.position = spawnPosition;
         bee.Initialize(0);
     }

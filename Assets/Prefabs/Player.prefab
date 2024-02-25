@@ -1135,8 +1135,9 @@ GameObject:
   - component: {fileID: 1765152652829599114}
   - component: {fileID: 40301648743000503}
   - component: {fileID: 7669303519993736129}
-  - component: {fileID: 5675516561020155798}
-  - component: {fileID: 5592520596503036961}
+  - component: {fileID: 7723699187899386410}
+  - component: {fileID: 2629343594091801499}
+  - component: {fileID: 7383902168214514681}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1179,7 +1180,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.55
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1187,7 +1188,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
@@ -1203,17 +1204,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749dd400ede740b479ca260682b4392b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 300
+  jumpForce: 5
   initialAngle: 40
-  initialForce: 700
-  strafeSpeed: 25
+  initialForce: 650
+  strafeSpeed: 1500
   maxStrafeSpeed: 10
-  terminalYVelocity: -10
-  swordLength: 10
-  swingTime: 0.2
+  strafeIdleDecreaseSpeed: 0.96
+  terminalYVelocity: -7
+  fastFallTermialYVelocity: -15
+  gravityScale: 0.5
+  fastFallRate: 15
+  swordLength: 1
+  swingTime: 1
   bounceTolerance: 0.3
+  gameOverScene: Cody_Test
   attackAnimation: {fileID: 0}
   jumpAnimation: {fileID: 0}
+  comboManager: {fileID: 0}
 --- !u!212 &4765001266314085281
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1357,8 +1364,38 @@ MonoBehaviour:
     showGizmo: 1
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
---- !u!61 &5675516561020155798
-BoxCollider2D:
+--- !u!111 &7723699187899386410
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8457577850903071397}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!114 &2629343594091801499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8457577850903071397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f420027372c744d97edc57c9346db6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pc: {fileID: -2377869539182776595}
+  _swordHit: {fileID: 11400000, guid: db0543bdf7828614dadf9d5b739bd2e6, type: 2}
+  _swordSwing: {fileID: 11400000, guid: 4f37afeb6c8b6a1418c82156a6dbc83c, type: 2}
+--- !u!68 &7383902168214514681
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1386,37 +1423,25 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.4353626, y: 1.0102808}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.36, y: 5.08}
-    newSize: {x: 8, y: 8}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.676102, y: 4.3553743}
+  m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
---- !u!111 &5592520596503036961
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8457577850903071397}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Points:
+  - {x: 1.7170517, y: 3.3487074}
+  - {x: 1.7240407, y: -0.7076025}
+  - {x: 1.5871286, y: -1.2811686}
+  - {x: 0.24721473, y: -1.2436304}
+  - {x: 0.109413594, y: -0.30857405}
+  - {x: -1.1821554, y: 0.41838098}
+  - {x: 0.21999475, y: 1.6209266}
+  - {x: -0.12588775, y: 2.8922992}
+  - {x: 1.716301, y: 3.2607968}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &8655635380127519738
 GameObject:
   m_ObjectHideFlags: 0
