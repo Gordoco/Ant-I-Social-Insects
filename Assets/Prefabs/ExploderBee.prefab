@@ -195,6 +195,7 @@ MonoBehaviour:
   knockoutForce: 600
   stunTime: 0
   weight: 1
+  secondsUntilActive: 20
   initialAngle: 45
   initialForce: 600
   explodeForceMult: 5

@@ -177,6 +177,7 @@ MonoBehaviour:
   knockoutForce: 600
   stunTime: 0.2
   weight: 2
+  secondsUntilActive: 5
   Speed: 8
 --- !u!114 &1868837319235965803
 MonoBehaviour:
