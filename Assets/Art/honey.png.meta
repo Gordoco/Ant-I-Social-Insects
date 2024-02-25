@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3a8bacd23d4a994479c74e55761870a0
+guid: 6cb7cfb686d7cf84b824af298bbbafd1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -102,8 +102,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 314
-        height: 237
+        width: 359
+        height: 189
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,8 +111,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8c8b66f68fbd454684ea649fe3f40be
-      internalID: 2093758900
+      spriteID: 5f061d6ef4398cb46a54121f35242405
+      internalID: 1312705875
       vertices: []
       indices: 
       edges: []
@@ -121,10 +121,10 @@ TextureImporter:
       name: honey_1
       rect:
         serializedVersion: 2
-        x: 314
+        x: 359
         y: 0
-        width: 314
-        height: 237
+        width: 359
+        height: 189
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99f6ec067c0bc6b44be4f6a04cefb8e6
-      internalID: 1854717074
+      spriteID: 2738a5ed57711814da05d9343658fe72
+      internalID: -704460699
       vertices: []
       indices: 
       edges: []
@@ -142,10 +142,10 @@ TextureImporter:
       name: honey_2
       rect:
         serializedVersion: 2
-        x: 628
+        x: 718
         y: 0
-        width: 314
-        height: 237
+        width: 359
+        height: 189
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a502271b4b6426c4eb3bcefc73da3d17
-      internalID: -1014496985
+      spriteID: efb339ad2f4ee9b4cb15b343ae666d4d
+      internalID: 1205123506
       vertices: []
       indices: 
       edges: []
@@ -170,9 +170,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      honey_0: 2093758900
-      honey_1: 1854717074
-      honey_2: -1014496985
+      honey_0: 1312705875
+      honey_1: -704460699
+      honey_2: 1205123506
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
