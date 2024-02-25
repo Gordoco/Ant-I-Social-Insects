@@ -7,26 +7,9 @@ public class EnemyManager : MonoBehaviour
     //EDITOR VARIABLES
     [SerializeField] private GameObject[] beeTypes;
 
-    [SerializeField] private float minYSpawn;
-    [SerializeField] private float maxYSpawn;
-    [SerializeField] private float XSpawn;
-
     [SerializeField] private float jumperRate = 0.2f;
     [SerializeField] private float specialRate = 0.7f;
-
-    [SerializeField] public GameObject poolTemplate;
     //---------------
-
-    /*private IEnumerator Start()
-    {
-        while (true)
-        {
-            score++;
-            SpawnSpecialBee();
-            SpawnJumperBaseline();
-            yield return new WaitForSeconds(0.3f);
-        }
-    }*/
 
     float jumperCount = 0;
     float specialCount = 0;

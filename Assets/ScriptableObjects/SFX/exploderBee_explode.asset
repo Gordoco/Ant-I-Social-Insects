@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2603f432bf8cbad44a0d89c722081a32, type: 3}
+  m_Name: exploderBee_explode
+  m_EditorClassIdentifier: 
+  _audioClips:
+  - {fileID: 8300000, guid: f2f229aa8c7733c4990a0f8eeb9a5deb, type: 3}
+  _volume: 0.632
