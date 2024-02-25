@@ -24,6 +24,10 @@ public class HoneyBlob : BaseBee
 
     private void Update()
     {
+        Vector2 v = GetComponent<Rigidbody2D>().velocity;
+        float angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
         if (transform.position.y < -8) gameObject.SetActive(false);
     }
 
