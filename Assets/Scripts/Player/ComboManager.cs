@@ -10,7 +10,7 @@ public class ComboManager : MonoBehaviour
     [SerializeField] private TMP_Text text;
     [SerializeField] private GameObject progBar;
 
-    private int[] comboMilestones = { 1, 2, 3, 4, 10, 20, 30, 40, 50, 60, 100 };
+    private int[] comboMilestones = { 10, 20, 30, 40, 50, 60, 100 };
     private int combo = 0;
     private int lastMilestone = 0;
     private Vector2 initLocalPos;

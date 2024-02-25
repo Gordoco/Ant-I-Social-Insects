@@ -427,7 +427,8 @@ MonoBehaviour:
   comboSounds: {fileID: 11400000, guid: 9411a1eb7fd27b54fb76d60310ce72ba, type: 2}
   text: {fileID: 7022845739311716797}
   progBar: {fileID: 5678024156717846182}
-  increasedFactor: 0.1
+  increasedFactor: 0.15
+  rotationFactor: 0.1
 --- !u!1 &6554019511637053621
 GameObject:
   m_ObjectHideFlags: 0
