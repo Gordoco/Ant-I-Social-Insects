@@ -32,9 +32,15 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private string gameOverScene = "Cody_Test";
 
+    [SerializeField] private AnimationClip attackAnimation;
+    [SerializeField] private AnimationClip jumpAnimation;
+
+    [SerializeField] private GameObject comboManager;
+    
     public event System.EventHandler SwingSword;
     public event System.EventHandler Bounce;
     public event System.EventHandler Die;
+    public event System.EventHandler SwordHit;
     //----------------
 
     private Rigidbody2D rb;
@@ -43,7 +49,7 @@ public class PlayerController : MonoBehaviour
     private bool bHit = false;
     private float forward = 0;
     private bool terminalVelOverride = false;
-    private bool bDead = false;
+    private float bounceFastFallDelayTime = 0.3f;
 
     private bool bStun = false;
 
@@ -64,7 +70,6 @@ public class PlayerController : MonoBehaviour
         if (CheckForDead())
         {
             Die?.Invoke(this, System.EventArgs.Empty);
-            bDead = true;
             SceneManager.LoadScene(gameOverScene);
         }
 
@@ -80,16 +85,16 @@ public class PlayerController : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (gameObject.layer == LayerMask.NameToLayer("womp_womp")) return;
         if (!collision.gameObject.GetComponent<BaseBee>()) return;
         BaseBee beeClass = collision.gameObject.GetComponent<BaseBee>();
-        if (!CheckCollisionDirection(collision.gameObject))
-        {
-            HandleInteraction(beeClass.Interact(EInteractionType.Smack));
-        }
-        else if (bHit)
+        if (bHit)
         {
             HandleInteraction(beeClass.Interact(EInteractionType.Swing));
-            //Debug.Log("HEY YOU SLAPPED SOMEONE");
+        }
+        else if (!CheckCollisionDirection(collision.gameObject))
+        {
+            HandleInteraction(beeClass.Interact(EInteractionType.Smack));
         }
         else
         {
@@ -142,18 +147,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    float FF_count = 0;
     private void HandleVerticalMovement(float delta)
     {
-        float val = Input.GetAxis("Vertical");
-
-        if (val >= 0)
+        if (FF_count > 0)
         {
-            terminalVelOverride = false;
-            rb.gravityScale = gravityScale;
-            return;
+            FF_count -= delta;
         }
-        rb.gravityScale += delta * fastFallRate;
-        terminalVelOverride = true;
+        else
+        {
+            FF_count = 0;
+            float val = Input.GetAxis("Vertical");
+
+            if (val >= 0)
+            {
+                terminalVelOverride = false;
+                rb.gravityScale = gravityScale;
+                return;
+            }
+            rb.gravityScale += delta * fastFallRate;
+            terminalVelOverride = true;
+        }
     }
 
     private void HandleDownSwing()
@@ -179,7 +193,7 @@ public class PlayerController : MonoBehaviour
         PixelPerfectCamera ppc = mainCamera.GetComponent<PixelPerfectCamera>();
 
         float height = (ppc.refResolutionY / (ppc.assetsPPU * 2));
-        if (transform.position.y <= -(height+ 1.5)) return true;
+        if (transform.position.y <= -(height+ 1.5) || Vector3.Distance(mainCamera.transform.position, transform.position) > 20) return true;
         return false;
     }
 
@@ -193,6 +207,7 @@ public class PlayerController : MonoBehaviour
         {
             arr[i] = results[i].collider.gameObject;
         }
+        if (size > 0) SwordHit?.Invoke(this, System.EventArgs.Empty);
         return arr;
     }
 
@@ -201,24 +216,36 @@ public class PlayerController : MonoBehaviour
         switch (interaction.result)
         {
             case EInteractionResult.Bounce:
-                rb.velocity = new Vector2(rb.velocity.x, 0);
+                FF_count = bounceFastFallDelayTime;
                 rb.gravityScale = gravityScale;
-                rb.AddForce(jumpForce * interaction.bounceModifier * transform.up);
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce * interaction.bounceModifier * transform.up.y);
                 Bounce?.Invoke(this, System.EventArgs.Empty);
-                //anim.Play(jumpAnimation.name);
+                comboManager.GetComponent<ComboManager>().KillBee(bHit);
                 break;
             case EInteractionResult.Smack:
                 rb.velocity = new Vector2(0, rb.velocity.y);
                 int dirMult;
                 if (interaction.other.transform.position.x - gameObject.transform.position.x > 0) dirMult = -1;
                 else dirMult = 1;
-                // rb.velocity += jumpForce * interaction.bounceModifier * (Vector2)transform.right * dirMult;
                 StopAllCoroutines();
                 StartCoroutine(StunProcess(interaction.stunTime));
                 rb.AddForce(jumpForce * interaction.bounceModifier * transform.right * dirMult);
+                comboManager.GetComponent<ComboManager>().KillBee(false);
                 break;
             case EInteractionResult.Kill:
                 gameObject.layer = LayerMask.NameToLayer("womp_womp"); // player is DEAD
+                if (interaction.bHoney)
+                {
+                    rb.velocity = new Vector2(0, rb.velocity.y);
+                    GetComponent<SpriteRenderer>().color = Color.yellow;
+                }
+                else if (interaction.bExplode)
+                {
+                    Vector2 dir = interaction.other.transform.position - transform.position;
+                    dir.Normalize();
+                    rb.velocity = dir * jumpForce * interaction.bounceModifier;
+                    GetComponent<SpriteRenderer>().color = Color.black;
+                }
                 StopAllCoroutines();
                 StartCoroutine(StunProcess(interaction.stunTime));
                 break;

@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: -8781868817112695953}
   - component: {fileID: 29487726885535631}
   - component: {fileID: 6355964230552244854}
-  - component: {fileID: 4654245403653882270}
   - component: {fileID: 8464379568277511935}
+  - component: {fileID: 2490408058643567757}
+  - component: {fileID: 8763463549959840735}
   m_Layer: 0
   m_Name: HoneyBlob
   m_TagString: Untagged
@@ -77,12 +78,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8d28deb0a7aa50c4a9d32f5dff2fe077, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_FlipX: 0
+  m_Sprite: {fileID: 1312705875, guid: 6cb7cfb686d7cf84b824af298bbbafd1, type: 3}
+  m_Color: {r: 1, g: 0.8150591, b: 0, a: 1}
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.6, y: 0.6}
+  m_Size: {x: 3.59, y: 1.89}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -151,8 +152,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.8, y: 1.8}
-    newSize: {x: 0.6, y: 0.6}
+    oldSize: {x: 3.59, y: 1.89}
+    newSize: {x: 3.59, y: 1.89}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -160,24 +161,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.8, y: 1.8}
   m_EdgeRadius: 0
---- !u!114 &4654245403653882270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7702567728395924562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ae9560db2bfe2b4bbda36a21ac967f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swingMult: 5.5
-  smackMult: 2
-  knockoutForce: 600
-  stunTime: 0.2
-  initialAngle: 135
-  initialForce: 320
 --- !u!114 &8464379568277511935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,9 +173,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aeddfecef22d134bb81812d069d70ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseEnemy: {fileID: 4654245403653882270}
-  _bounce: {fileID: 11400000, guid: fe2c7f05020872247a4af9e41a4c9c59, type: 2}
-  _damage: {fileID: 11400000, guid: fe2c7f05020872247a4af9e41a4c9c59, type: 2}
-  _kill: {fileID: 0}
+  _baseEnemy: {fileID: 2490408058643567757}
+  _bounce: {fileID: 11400000, guid: 1db16f09af5830844aedbe04869cd288, type: 2}
+  _damage: {fileID: 11400000, guid: 1db16f09af5830844aedbe04869cd288, type: 2}
+  _kill: {fileID: 11400000, guid: 1db16f09af5830844aedbe04869cd288, type: 2}
   _spawned: {fileID: 0}
   _dead: {fileID: 0}
+--- !u!114 &2490408058643567757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7702567728395924562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b8b188f292d264db06197156c1f26d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swingMult: 3
+  smackMult: 4
+  knockoutForce: 600
+  stunTime: 0
+  weight: 1
+  secondsUntilActive: 20
+  initialAngle: 45
+  initialForce: 500
+--- !u!95 &8763463549959840735
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7702567728395924562}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6d5294021a9a54d4881f1b051d5358bb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

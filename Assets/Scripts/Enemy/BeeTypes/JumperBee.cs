@@ -28,7 +28,7 @@ public class JumperBee : BaseBee
 
     public override EnemySpawner GetSpawnerType(GameObject beeType)
     {
-        return new JumperBeeSpawner(200, beeType);
+        return new JumperBeeSpawner(50, beeType);
     }
 
     /*public override FInteraction Interact(EInteractionType interaction)

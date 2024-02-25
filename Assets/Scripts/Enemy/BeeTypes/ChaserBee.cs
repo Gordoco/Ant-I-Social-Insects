@@ -35,7 +35,7 @@ public class ChaserBee : BaseBee
 
     public override EnemySpawner GetSpawnerType(GameObject beeType)
     {
-        return new ChaserBeeSpawner(20, beeType);
+        return new ChaserBeeSpawner(50, beeType);
     }
 
     private IEnumerator ChaserBeeAutoDeath()

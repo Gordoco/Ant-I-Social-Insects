@@ -15,11 +15,13 @@ public abstract class BaseBee : MonoBehaviour
 
     [SerializeField] protected float knockoutForce = 5000.0f;
     [SerializeField] protected float stunTime;
-    private float weight;
+    [SerializeField] private float weight = 1;
+    [SerializeField] private float secondsUntilActive = 0;
 
     public abstract EnemySpawner GetSpawnerType(GameObject beeType);
 
     public float GetSpawnWeight() { return weight; }
+    public float GetSpawnDelay() { return secondsUntilActive; }
 
     public virtual FInteraction Interact(EInteractionType interactionType)
     {

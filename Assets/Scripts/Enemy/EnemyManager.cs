@@ -6,36 +6,28 @@ public class EnemyManager : MonoBehaviour
 {
     //EDITOR VARIABLES
     [SerializeField] private GameObject[] beeTypes;
-
-    [SerializeField] private float minYSpawn;
-    [SerializeField] private float maxYSpawn;
-    [SerializeField] private float XSpawn;
+    private bool[] typeActive;
 
     [SerializeField] private float jumperRate = 0.2f;
     [SerializeField] private float specialRate = 0.7f;
-
-    [SerializeField] public GameObject poolTemplate;
     //---------------
 
-    private int score = 0;
-
-    /*private IEnumerator Start()
+    private void Start()
     {
-        while (true)
-        {
-            score++;
-            SpawnSpecialBee();
-            SpawnJumperBaseline();
-            yield return new WaitForSeconds(0.3f);
-        }
-    }*/
+        typeActive = new bool[beeTypes.Length];
+        for (int i = 0; i < beeTypes.Length; i++) typeActive[i] = beeTypes[i].GetComponent<BaseBee>().GetSpawnDelay() == 0;
+    }
 
+    float delayCount = 0;
     float jumperCount = 0;
     float specialCount = 0;
+    bool bAllDone = false;
     private void Update()
     {
+        delayCount += Time.deltaTime;
         jumperCount += Time.deltaTime;
         specialCount += Time.deltaTime;
+
         if (jumperCount > jumperRate)
         {
             SpawnJumperBee();
@@ -46,11 +38,21 @@ public class EnemyManager : MonoBehaviour
             SpawnSpecialBee();
             specialCount = 0;
         }
+
+        if (!bAllDone) {
+            bAllDone = true;
+            for (int i = 0; i < beeTypes.Length; i++)
+            {
+                if (delayCount > beeTypes[i].GetComponent<BaseBee>().GetSpawnDelay()) typeActive[i] = true;
+                if (!typeActive[i]) bAllDone = false;
+            }
+        }
     }
 
     private void SpawnSpecialBee()
     {
         GameObject bee = GetBeeToSpawn();
+        if (!bee) return;
         EnemySpawner spawner = bee.GetComponent<BaseBee>().GetSpawnerType(bee);
         spawner.SpawnEnemy(GameObject.FindGameObjectWithTag("Player").transform);
     }
@@ -75,18 +77,19 @@ public class EnemyManager : MonoBehaviour
         float sum = 0;
         for (int i = 0; i < beeTypes.Length; i++) 
         {
-            if (beeTypes[i].GetComponent<JumperBee>()) continue;
-            sum += beeTypes[i].GetComponent<BaseBee>().GetSpawnWeight(); 
+            if (beeTypes[i].GetComponent<JumperBee>() || !typeActive[i]) continue;
+
+            sum += beeTypes[i].GetComponent<BaseBee>().GetSpawnWeight();
         }
         float rand = Random.Range(0.0f, sum);
         float count = 0;
         for (int i = 0; i < beeTypes.Length; i++)
         {
-            if (beeTypes[i].GetComponent<JumperBee>()) continue;
+            if (beeTypes[i].GetComponent<JumperBee>() || !typeActive[i]) continue;
+
             count += beeTypes[i].GetComponent<BaseBee>().GetSpawnWeight();
             if (count >= rand) return beeTypes[i];
         }
-        Debug.Log("ERROR: EnemyManager - No Valid Bee Type Chosen");
         return null;
     }
 
