@@ -198,5 +198,5 @@ MonoBehaviour:
   initialAngle: 45
   initialForce: 600
   explodeForceMult: 5
-  explodeSound: {fileID: 11400000, guid: 950b77002954b0a4f99f4f7a4702472f, type: 2}
+  explodeSound: {fileID: 11400000, guid: d3113888775d6c24c87ec91d6c964ded, type: 2}
   explodeSprite: {fileID: 21300000, guid: 8bb2b5e02ac710e4caa9d37c2e123e2d, type: 3}
