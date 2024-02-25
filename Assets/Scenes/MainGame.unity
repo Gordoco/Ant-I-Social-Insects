@@ -216,6 +216,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -2377869539182776595, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
+      propertyPath: swingTime
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: -2377869539182776595, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
+      propertyPath: swordLength
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -2377869539182776595, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
       propertyPath: comboManager
       value: 
       objectReference: {fileID: 694387101}

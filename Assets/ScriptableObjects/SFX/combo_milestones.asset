@@ -12,5 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2603f432bf8cbad44a0d89c722081a32, type: 3}
   m_Name: combo_milestones
   m_EditorClassIdentifier: 
-  _audioClips: []
-  _volume: 0
+  _audioClips:
+  - {fileID: 8300000, guid: c0864f8e89097e34ca34b8bf9735d995, type: 3}
+  - {fileID: 8300000, guid: e243a282dad45c147a6bf033d9046104, type: 3}
+  - {fileID: 8300000, guid: 110726e6df87fa34b8768d3b9486ae54, type: 3}
+  - {fileID: 8300000, guid: 203e25931fba26649ab556fa87598389, type: 3}
+  - {fileID: 8300000, guid: 599ffce130d09864dbc3b80040b13e16, type: 3}
+  - {fileID: 8300000, guid: a0fa8044ed173494ab2eb09340ff561c, type: 3}
+  - {fileID: 8300000, guid: 348cb3e9aed1ad949a07a826fae17d47, type: 3}
+  - {fileID: 8300000, guid: a5be21df4341ba7488e5073e06067c27, type: 3}
+  - {fileID: 8300000, guid: c305b47c8f3906041b8bca3a90cdb5b1, type: 3}
+  - {fileID: 8300000, guid: fd650437e5c4941408d839dfa4c7c2c5, type: 3}
+  - {fileID: 8300000, guid: 77e7e23ffc143924da05bcc57f641cea, type: 3}
+  _volume: 0.9
