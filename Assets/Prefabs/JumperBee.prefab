@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6355964230552244854}
   - component: {fileID: 4654245403653882270}
   - component: {fileID: 8464379568277511935}
+  - component: {fileID: 3422046006395416946}
   m_Layer: 0
   m_Name: JumperBee
   m_TagString: Untagged
@@ -77,12 +78,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8d28deb0a7aa50c4a9d32f5dff2fe077, type: 3}
+  m_Sprite: {fileID: -1461414710, guid: ad6a1d3ee7a8d6a45800d04ee17ad9eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.6, y: 0.6}
+  m_Size: {x: 4.37, y: 3.36}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -151,8 +152,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.8, y: 1.8}
-    newSize: {x: 0.6, y: 0.6}
+    oldSize: {x: 4.37, y: 3.36}
+    newSize: {x: 4.37, y: 3.36}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -196,3 +197,24 @@ MonoBehaviour:
   _kill: {fileID: 0}
   _spawned: {fileID: 0}
   _dead: {fileID: 0}
+--- !u!95 &3422046006395416946
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7702567728395924562}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1ed6c910943d962428f00942c5d3ceee, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
