@@ -9,7 +9,6 @@ public class ComboManager : MonoBehaviour
     [SerializeField] private SFX comboSounds;
     [SerializeField] private TMP_Text text;
     [SerializeField] private GameObject progBar;
-    [SerializeField] private float progBarDrain = 1;
 
     private int combo = 0;
 
@@ -21,14 +20,15 @@ public class ComboManager : MonoBehaviour
 
     private void Update()
     {
-        progBar.GetComponent<Slider>().value -= Time.deltaTime * progBarDrain;
+        progBar.GetComponent<Slider>().value -= Time.deltaTime * Mathf.Clamp(((float)combo)/30, 0, 0.75f);
         if (progBar.GetComponent<Slider>().value <= 0) combo = 0;
         text.text = "" + combo;
     }
 
-    public void KillBee()
+    public void KillBee(bool bSword)
     {
-        combo++;
+        if (!bSword) combo++;
+        else combo += 2;
         progBar.GetComponent<Slider>().value = 1;
     }
 }

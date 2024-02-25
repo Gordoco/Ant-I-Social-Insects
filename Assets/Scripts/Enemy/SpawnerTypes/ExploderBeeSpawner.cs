@@ -1,19 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.U2D;
 
-public class ChaserBeeSpawner : EnemySpawner
+public class ExploderBeeSpawner : EnemySpawner
 {
-    private Transform _player;
-
-    public ChaserBeeSpawner(int poolSize, GameObject beeType) : base(poolSize, beeType)
-    {}
+    public ExploderBeeSpawner(int poolSize, GameObject beeType) : base(poolSize, beeType)
+    { }
 
     public override void SpawnEnemy(Transform player)
     {
-
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
         PixelPerfectCamera pCamera = camera.GetComponent<PixelPerfectCamera>();
         float camX = camera.transform.position.x;
@@ -37,12 +33,12 @@ public class ChaserBeeSpawner : EnemySpawner
 
         if (enemyObj == null) return;
 
-        ChaserBee bee = enemyObj.GetComponent<ChaserBee>();
+        ExploderBee bee = enemyObj.GetComponent<ExploderBee>();
 
-        bee.PlayerPosition = player.position;
-        bee.transform.localScale *= rand == 1 ? -1 : 1;
+        bee.initialAngle = rand == 0 ? 40 : 140;
+        bee.transform.localScale *= rand == 1 ? 1 : -1;
         bee.transform.localScale = new Vector3(bee.transform.localScale.x, 1, 1);
-        bee.SpawnPosition = spawnPosition;
+        bee.transform.position = spawnPosition;
         bee.Initialize(0);
     }
 }

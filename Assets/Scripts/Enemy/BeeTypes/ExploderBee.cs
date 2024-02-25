@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HoneyBlob : BaseBee
+[RequireComponent(typeof(SpriteRenderer))]
+public class ExploderBee : BaseBee
 {
-    //EDITOR VARIABLES
+
     [SerializeField] public float initialAngle = 45.0f;
-    [SerializeField] private float initialForce = 600.0f;
-    //----------------
+    [SerializeField] private float initialForce = 500.0f;
+    [SerializeField] private float explodeForceMult = 5f;
+    [SerializeField] private SFX explodeSound;
+    [SerializeField] private Sprite explodeSprite;
 
     public override void Initialize(float minThreshold)
     {
@@ -19,7 +22,6 @@ public class HoneyBlob : BaseBee
             );
         angularVector.Normalize();
         GetComponent<Rigidbody2D>().AddForce(angularVector * initialForce);
-        stunTime = 200f;
     }
 
     private void Update()
@@ -29,7 +31,7 @@ public class HoneyBlob : BaseBee
 
     public override EnemySpawner GetSpawnerType(GameObject beeType)
     {
-        return new HoneyBlobSpawner(50, beeType);
+        return new ExploderBeeSpawner(50, beeType);
     }
 
     public override FInteraction Interact(EInteractionType interactionType)
@@ -39,10 +41,19 @@ public class HoneyBlob : BaseBee
         switch (interactionType)
         {
             case EInteractionType.Stomp:
+                result = new FInteraction(gameObject, EInteractionResult.Bounce);
+                break;
             case EInteractionType.Swing:
+                GetComponent<SpriteRenderer>().sprite = explodeSprite;
+                GetComponent<SpriteRenderer>().color = Color.white;
+                GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
+                StartCoroutine(ExplodeTimer());
+                SFXPlayer.PlaySFX(explodeSound);
+                result = new FInteraction(gameObject, EInteractionResult.Kill, explodeForceMult, 200, false, true);
+                break;
             // only interaction with honey blob
             case EInteractionType.Smack:
-                result = new FInteraction(gameObject, EInteractionResult.Kill, smackMult, stunTime, true, false);
+                result = new FInteraction(gameObject, EInteractionResult.Smack, smackMult, stunTime);
                 break;
 
             // otherwise do nothing
@@ -52,5 +63,11 @@ public class HoneyBlob : BaseBee
         }
         OnInteraction(result);
         return result;
+    }
+
+    private IEnumerator ExplodeTimer()
+    {
+        yield return new WaitForSeconds(2);
+        gameObject.SetActive(false);
     }
 }
