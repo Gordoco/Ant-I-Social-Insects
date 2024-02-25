@@ -19,8 +19,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        //Commented out until game scene is added
-        //SceneManager.LoadScene(1);
+        SceneManager.LoadScene(1);
     }
 
 }
