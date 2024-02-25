@@ -173,9 +173,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseEnemy: {fileID: 2490408058643567757}
-  _bounce: {fileID: 11400000, guid: fe2c7f05020872247a4af9e41a4c9c59, type: 2}
-  _damage: {fileID: 11400000, guid: fe2c7f05020872247a4af9e41a4c9c59, type: 2}
-  _kill: {fileID: 0}
+  _bounce: {fileID: 11400000, guid: 1db16f09af5830844aedbe04869cd288, type: 2}
+  _damage: {fileID: 11400000, guid: 1db16f09af5830844aedbe04869cd288, type: 2}
+  _kill: {fileID: 11400000, guid: 1db16f09af5830844aedbe04869cd288, type: 2}
   _spawned: {fileID: 0}
   _dead: {fileID: 0}
 --- !u!114 &2490408058643567757
