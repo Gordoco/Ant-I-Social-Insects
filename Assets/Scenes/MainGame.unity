@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 694387101}
     - target: {fileID: -2377869539182776595, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
       propertyPath: gameOverScene
-      value: MainGame
+      value: GameOver
       objectReference: {fileID: 0}
     - target: {fileID: 6262092313181568161, guid: 5b0d874c02c0178418d8667a353405a4, type: 3}
       propertyPath: m_LocalPosition.x
