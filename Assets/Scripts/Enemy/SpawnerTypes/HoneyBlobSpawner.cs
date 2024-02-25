@@ -36,8 +36,8 @@ public class HoneyBlobSpawner : EnemySpawner
         HoneyBlob bee = enemyObj.GetComponent<HoneyBlob>();
 
         bee.initialAngle = rand == 0 ? 30 : 150;
-        bee.transform.localScale *= rand == 1 ? 1 : -1;
-        bee.transform.localScale = new Vector3(bee.transform.localScale.x, 1, 1);
+        // bee.transform.localScale *= rand == 1 ? 1 : -1;
+        // bee.transform.localScale = new Vector3(bee.transform.localScale.x, 1, 1);
         bee.transform.position = spawnPosition;
         bee.Initialize(0);
     }
